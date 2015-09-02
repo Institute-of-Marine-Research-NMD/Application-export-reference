@@ -1,7 +1,9 @@
 package no.imr.nmdapi.client.loader.dao;
 
+import java.sql.Date;
 import java.util.List;
 import javax.sql.DataSource;
+import no.imr.nmdapi.client.loader.mapper.DateMapper;
 import no.imr.nmdapi.client.loader.mapper.LanguageElementTypeMapper;
 import no.imr.nmdapi.generic.nmdreference.domain.v1.LanguageElementType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +31,9 @@ public class LanguageDAO {
     public List<LanguageElementType> getLanguageElementType() {
         return jdbcTemplate.query("SELECT name, id, iso6391 from nmdreference.language", new LanguageElementTypeMapper());
     }
+
+    public Date getLastChanged() {
+        return (Date) jdbcTemplate.query("SELECT max(last_edited) as last_edited FROM nmdreference.language", new DateMapper()).get(0);
+    }
+
 }

@@ -10,6 +10,7 @@ import no.imr.nmdapi.client.loader.dao.NationDAO;
 import no.imr.nmdapi.client.loader.dao.PlatformDAO;
 import no.imr.nmdapi.client.loader.dao.SeaAreasDAO;
 import no.imr.nmdapi.client.loader.dao.TaxaDAO;
+import no.imr.nmdapi.client.loader.dao.UDPListDAO;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -82,5 +83,10 @@ public class PersistenceConfig {
     @Bean
     public SeaAreasDAO seaAreasDAO() {
         return new SeaAreasDAO();
+    }
+
+    @Bean
+    public UDPListDAO udpListDAO() {
+        return new UDPListDAO();
     }
 }

@@ -9,6 +9,7 @@ import no.imr.nmdapi.client.loader.convert.NationConverter;
 import no.imr.nmdapi.client.loader.convert.PlatformConverter;
 import no.imr.nmdapi.client.loader.convert.SeaAreasConverter;
 import no.imr.nmdapi.client.loader.convert.TaxaConverter;
+import no.imr.nmdapi.client.loader.convert.UdpListConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -63,5 +64,10 @@ public class ConverterConfig {
     @Bean
     public SeaAreasConverter seaAreasConverter() {
         return new SeaAreasConverter();
+    }
+
+    @Bean
+    public UdpListConverter udpListConverter() {
+        return new UdpListConverter();
     }
 }

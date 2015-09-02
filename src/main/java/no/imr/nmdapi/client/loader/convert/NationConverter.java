@@ -1,5 +1,6 @@
 package no.imr.nmdapi.client.loader.convert;
 
+import java.sql.Date;
 import no.imr.nmdapi.client.loader.dao.NationDAO;
 import no.imr.nmdapi.generic.nmdreference.domain.v1.NationElementListType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class NationConverter {
     public NationElementListType getNationElementListType() {
         NationElementListType nations = new NationElementListType();
         nations.getElement().addAll(nationDAO.getNations());
+        nations.setLastChanged(DateConverter.convertDate((Date) nationDAO.getLastChanged()));
         return nations;
     }
 }

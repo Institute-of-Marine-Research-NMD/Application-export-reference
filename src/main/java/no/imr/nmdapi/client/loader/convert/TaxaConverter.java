@@ -1,5 +1,6 @@
 package no.imr.nmdapi.client.loader.convert;
 
+import java.sql.Date;
 import java.util.List;
 import no.imr.nmdapi.client.loader.dao.TaxaDAO;
 import no.imr.nmdapi.client.loader.pojo.SpesialstadieLists;
@@ -73,6 +74,8 @@ public class TaxaConverter {
             }
 
             taxaList.getTaxa().add(taxaElementType);
+
+            taxaList.setLastChanged(DateConverter.convertDate((Date) taxaDAO.getLastChanged()));
         }
         return taxaList;
     }

@@ -1,7 +1,9 @@
 package no.imr.nmdapi.client.loader.dao;
 
+import java.sql.Date;
 import java.util.List;
 import javax.sql.DataSource;
+import no.imr.nmdapi.client.loader.mapper.DateMapper;
 import no.imr.nmdapi.client.loader.mapper.PlatformCodeMapper;
 import no.imr.nmdapi.client.loader.mapper.PlatformElementTypeMapper;
 import no.imr.nmdapi.generic.nmdreference.domain.v1.PlatformElementType;
@@ -48,6 +50,10 @@ public class PlatformDAO {
      */
     public List<PlatformElementType.PlatformCodes.PlatformCode> getPlatformCodesForPlatform(String id) {
         return jdbcTemplate.query(GET_PLATFORM_CODES_FOR_PLATFORM, new PlatformCodeMapper(), id);
+    }
+
+    public Date getLastChanged() {
+        return (Date) jdbcTemplate.query("select max(a) as last_edited from (select max(plat.last_edited) as a from nmdreference.platform plat union select max(code.last_edited) as b from nmdreference.platformcode code) n", new DateMapper()).get(0);
     }
 
 }

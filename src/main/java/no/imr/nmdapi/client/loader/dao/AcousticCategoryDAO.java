@@ -1,8 +1,10 @@
 package no.imr.nmdapi.client.loader.dao;
 
+import java.sql.Date;
 import java.util.List;
 import javax.sql.DataSource;
 import no.imr.nmdapi.client.loader.mapper.AcousticCategoryElementTypeMapper;
+import no.imr.nmdapi.client.loader.mapper.DateMapper;
 import no.imr.nmdapi.generic.nmdreference.domain.v1.AcousticCategoryElementType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,5 +30,9 @@ public class AcousticCategoryDAO {
      */
     public List<AcousticCategoryElementType> getAcousticCategories() {
         return jdbcTemplate.query("SELECT id, acousticcategory, initials, englishinitials, commonname, englishname, pgnapescode FROM nmdreference.acousticcategory", new AcousticCategoryElementTypeMapper());
+    }
+
+    public Date getLastChanged() {
+        return (Date) jdbcTemplate.query("SELECT max(last_edited) as last_edited FROM nmdreference.acousticcategory", new DateMapper()).get(0);
     }
 }

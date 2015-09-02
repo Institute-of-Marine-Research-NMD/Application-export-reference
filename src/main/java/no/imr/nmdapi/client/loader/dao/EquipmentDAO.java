@@ -1,7 +1,9 @@
 package no.imr.nmdapi.client.loader.dao;
 
+import java.sql.Date;
 import java.util.List;
 import javax.sql.DataSource;
+import no.imr.nmdapi.client.loader.mapper.DateMapper;
 import no.imr.nmdapi.client.loader.mapper.EquipmentElementTypeMapper;
 import no.imr.nmdapi.generic.nmdreference.domain.v1.EquipmentElementType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +30,9 @@ public class EquipmentDAO {
      */
     public List<EquipmentElementType> getEquipments() {
         return jdbcTemplate.query("select id, code, name, area, description from nmdreference.equipment", new EquipmentElementTypeMapper());
+    }
+
+    public Date getLastChanged() {
+        return (Date) jdbcTemplate.query("SELECT max(last_edited) as last_edited FROM nmdreference.equipment", new DateMapper()).get(0);
     }
 }

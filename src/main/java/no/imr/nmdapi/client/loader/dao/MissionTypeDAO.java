@@ -1,7 +1,9 @@
 package no.imr.nmdapi.client.loader.dao;
 
+import java.sql.Date;
 import java.util.List;
 import javax.sql.DataSource;
+import no.imr.nmdapi.client.loader.mapper.DateMapper;
 import no.imr.nmdapi.client.loader.mapper.MissionTypeElementTypeMapper;
 import no.imr.nmdapi.generic.nmdreference.domain.v1.MissionTypeElementType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +30,9 @@ public class MissionTypeDAO {
      */
     public List<MissionTypeElementType> getMissionTypes() {
         return jdbcTemplate.query("select id, code, description from nmdreference.missiontype", new MissionTypeElementTypeMapper());
+    }
+
+    public Date getLastChanged() {
+        return (Date) jdbcTemplate.query("SELECT max(last_edited) as last_edited FROM nmdreference.missiontype", new DateMapper()).get(0);
     }
 }

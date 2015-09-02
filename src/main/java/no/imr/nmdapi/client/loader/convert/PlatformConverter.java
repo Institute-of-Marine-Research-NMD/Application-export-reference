@@ -1,5 +1,6 @@
 package no.imr.nmdapi.client.loader.convert;
 
+import java.sql.Date;
 import java.util.List;
 import no.imr.nmdapi.client.loader.dao.PlatformDAO;
 import no.imr.nmdapi.generic.nmdreference.domain.v1.PlatformElementListType;
@@ -26,6 +27,8 @@ public class PlatformConverter {
             platformElementType.setPlatformCodes(pc);
             platformList.getPlatform().add(platformElementType);
         }
+
+        platformList.setLastChanged(DateConverter.convertDate((Date) platformDAO.getLastChanged()));
         return platformList;
     }
 }

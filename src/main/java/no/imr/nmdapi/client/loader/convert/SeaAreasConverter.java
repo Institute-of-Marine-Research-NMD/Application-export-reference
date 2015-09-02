@@ -1,5 +1,6 @@
 package no.imr.nmdapi.client.loader.convert;
 
+import java.sql.Date;
 import no.imr.nmdapi.client.loader.dao.SeaAreasDAO;
 import no.imr.nmdapi.generic.nmdreference.domain.v1.SeaAreasElementListType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class SeaAreasConverter {
     public SeaAreasElementListType getSeaAreasElementListType() {
         SeaAreasElementListType elementList = new SeaAreasElementListType();
         elementList.getElement().addAll(seaAreasDAO.getSeaAreas());
+        elementList.setLastChanged(DateConverter.convertDate((Date) seaAreasDAO.getLastChanged()));
         return elementList;
     }
 }

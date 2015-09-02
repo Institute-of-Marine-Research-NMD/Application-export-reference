@@ -2,14 +2,16 @@
  */
 package no.imr.nmdapi.client.loader.dao;
 
+import java.sql.Date;
 import java.util.List;
 import javax.sql.DataSource;
+import no.imr.nmdapi.client.loader.mapper.DateMapper;
+import no.imr.nmdapi.client.loader.mapper.KeyValueElementTypeMapper;
 import no.imr.nmdapi.client.loader.mapper.RestrictionElementTypeMapper;
 import no.imr.nmdapi.client.loader.mapper.SpesialstadieListsMapper;
 import no.imr.nmdapi.client.loader.mapper.StockElementTypeMapper;
-import no.imr.nmdapi.client.loader.mapper.TaxaElementTypeMapper;
 import no.imr.nmdapi.client.loader.mapper.SynonymMapper;
-import no.imr.nmdapi.client.loader.mapper.KeyValueElementTypeMapper;
+import no.imr.nmdapi.client.loader.mapper.TaxaElementTypeMapper;
 import no.imr.nmdapi.client.loader.pojo.SpesialstadieLists;
 import no.imr.nmdapi.generic.nmdreference.domain.v1.KeyValueElementType;
 import no.imr.nmdapi.generic.nmdreference.domain.v1.RestrictionElementType;
@@ -39,6 +41,13 @@ public class TaxaDAO {
     private static final String GET_RESTRICTION = "select rev.double_value, r.name, r.description from nmdreference.u_restriction_value rev, nmdreference.u_restriction r where rev.id_u_restriction = r.id and id_taxa = ?";
 
     private static final String GET_STOCK = "select description, id, code from nmdreference.stock where id_taxa = ?";
+
+    private static final String LAST_EDITED = "select max(a) as last_edited from "
+            + "(select max(tax.last_edited) as a from nmdreference.taxa tax "
+            + "union select max(syn.last_edited) as b from nmdreference.taxa_synonym syn "
+            + "union select max(rest.last_edited) as c from nmdreference.u_restriction rest "
+            + "union select max(restval.last_edited) as d from nmdreference.u_restriction_value restval "
+            + "union select max(stock.last_edited) as e from nmdreference.stock stock) n";
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -103,5 +112,9 @@ public class TaxaDAO {
      */
     public List<StockElementType> getStock(String id) {
         return jdbcTemplate.query(GET_STOCK, new StockElementTypeMapper(), id);
+    }
+
+    public Date getLastChanged() {
+        return (Date) jdbcTemplate.query(LAST_EDITED, new DateMapper()).get(0);
     }
 }

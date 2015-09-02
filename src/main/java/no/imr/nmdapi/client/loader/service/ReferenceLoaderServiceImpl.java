@@ -1,6 +1,7 @@
 package no.imr.nmdapi.client.loader.service;
 
 import java.io.File;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
@@ -15,6 +16,8 @@ import no.imr.nmdapi.client.loader.convert.NationConverter;
 import no.imr.nmdapi.client.loader.convert.PlatformConverter;
 import no.imr.nmdapi.client.loader.convert.SeaAreasConverter;
 import no.imr.nmdapi.client.loader.convert.TaxaConverter;
+import no.imr.nmdapi.client.loader.convert.UdpListConverter;
+import no.imr.nmdapi.generic.nmdreference.domain.v1.KeyValueElementListType;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +63,9 @@ public class ReferenceLoaderServiceImpl implements ReferenceLoaderServiceInterfa
     @Autowired
     private SeaAreasConverter seaAreasConverter;
 
+    @Autowired
+    private UdpListConverter udpListConverter;
+
     @Override
     public void loadReferenceToXml() {
         File baseDirectory = new File(config.getString("file.location"));
@@ -92,7 +98,13 @@ public class ReferenceLoaderServiceImpl implements ReferenceLoaderServiceInterfa
         LOGGER.info("FINISHED with nation!");
 
         writeToFile(seaAreasConverter.getSeaAreasElementListType(), new File(baseDirectory.getAbsolutePath().concat("/seaareas.xml")));
-        LOGGER.info("FINISHED with nation!");
+        LOGGER.info("FINISHED with sea areas!");
+
+        List<KeyValueElementListType> udpLists = udpListConverter.getUdpLists();
+        for (KeyValueElementListType keyValueElementListType : udpLists) {
+            writeToFile(keyValueElementListType, new File(baseDirectory.getAbsolutePath().concat("/").concat(keyValueElementListType.getLookupName().replace("/", "_")).concat(".xml")));
+        }
+        LOGGER.info("FINISHED with udp lists!");
     }
 
     private void writeToFile(Object taxaList, File file) {

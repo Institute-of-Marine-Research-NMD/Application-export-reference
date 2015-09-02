@@ -1,5 +1,6 @@
 package no.imr.nmdapi.client.loader.convert;
 
+import java.sql.Date;
 import no.imr.nmdapi.client.loader.dao.EquipmentDAO;
 import no.imr.nmdapi.generic.nmdreference.domain.v1.EquipmentElementListType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class EquipmentConverter {
     public EquipmentElementListType generateEquipmentElementListType() {
         EquipmentElementListType equipmentList = new EquipmentElementListType();
         equipmentList.getElement().addAll(equipmentDAO.getEquipments());
+        equipmentList.setLastChanged(DateConverter.convertDate((Date) equipmentDAO.getLastChanged()));
         return equipmentList;
     }
 }

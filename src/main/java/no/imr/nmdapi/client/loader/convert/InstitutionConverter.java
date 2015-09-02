@@ -1,5 +1,6 @@
 package no.imr.nmdapi.client.loader.convert;
 
+import java.sql.Date;
 import no.imr.nmdapi.client.loader.dao.InstitutionDAO;
 import no.imr.nmdapi.generic.nmdreference.domain.v1.InstitutionElementListType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class InstitutionConverter {
     public InstitutionElementListType getInstitutionElementListType() {
         InstitutionElementListType institutionList = new InstitutionElementListType();
         institutionList.getElement().addAll(institutionDAO.getInstitutions());
+        institutionList.setLastChanged(DateConverter.convertDate((Date) institutionDAO.getLastChanged()));
         return institutionList;
     }
 }

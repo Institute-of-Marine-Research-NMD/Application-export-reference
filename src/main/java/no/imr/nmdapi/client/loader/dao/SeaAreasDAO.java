@@ -1,7 +1,9 @@
 package no.imr.nmdapi.client.loader.dao;
 
+import java.sql.Date;
 import java.util.List;
 import javax.sql.DataSource;
+import no.imr.nmdapi.client.loader.mapper.DateMapper;
 import no.imr.nmdapi.client.loader.mapper.SeaAreasElementTypeMapper;
 import no.imr.nmdapi.generic.nmdreference.domain.v1.SeaAreasElementType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +30,9 @@ public class SeaAreasDAO {
      */
     public List<SeaAreasElementType> getSeaAreas() {
         return jdbcTemplate.query("select id, name, description from nmdreference.seaarea", new SeaAreasElementTypeMapper());
+    }
+
+    public Date getLastChanged() {
+        return (Date) jdbcTemplate.query("SELECT max(last_edited) as last_edited FROM nmdreference.seaarea", new DateMapper()).get(0);
     }
 }

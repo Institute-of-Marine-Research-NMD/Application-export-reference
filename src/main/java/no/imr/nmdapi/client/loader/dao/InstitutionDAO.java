@@ -1,7 +1,9 @@
 package no.imr.nmdapi.client.loader.dao;
 
+import java.sql.Date;
 import java.util.List;
 import javax.sql.DataSource;
+import no.imr.nmdapi.client.loader.mapper.DateMapper;
 import no.imr.nmdapi.client.loader.mapper.InstitutionElementTypeMapper;
 import no.imr.nmdapi.generic.nmdreference.domain.v1.InstitutionElementType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +30,9 @@ public class InstitutionDAO {
      */
     public List<InstitutionElementType> getInstitutions() {
         return jdbcTemplate.query("select id, nation, institution, instname, instadress, instphone, instemail from nmdreference.institution", new InstitutionElementTypeMapper());
+    }
+
+    public Date getLastChanged() {
+        return (Date) jdbcTemplate.query("SELECT max(last_edited) as last_edited FROM nmdreference.institution", new DateMapper()).get(0);
     }
 }
