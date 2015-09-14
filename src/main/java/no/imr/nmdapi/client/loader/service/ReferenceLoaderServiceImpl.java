@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import no.imr.commons.nmdreference.domain.v1.KeyValueElementListType;
 import no.imr.nmdapi.client.loader.convert.AcousticCategoryConverter;
 import no.imr.nmdapi.client.loader.convert.EquipmentConverter;
 import no.imr.nmdapi.client.loader.convert.InstitutionConverter;
@@ -17,7 +18,6 @@ import no.imr.nmdapi.client.loader.convert.PlatformConverter;
 import no.imr.nmdapi.client.loader.convert.SeaAreasConverter;
 import no.imr.nmdapi.client.loader.convert.TaxaConverter;
 import no.imr.nmdapi.client.loader.convert.UdpListConverter;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.KeyValueElementListType;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,7 +79,7 @@ public class ReferenceLoaderServiceImpl implements ReferenceLoaderServiceInterfa
         writeToFile(taxaConverter.generateTaxaJaxBData(), new File(baseDirectory.getAbsolutePath().concat("/taxa.xml")));
         LOGGER.info("FINISHED with taxa!");
 
-        writeToFile(acousticCategoryConverter.generateAcousticCategoryListType(), new File(baseDirectory.getAbsolutePath().concat("/acousticCategory.xml")));
+        writeToFile(acousticCategoryConverter.generateAcousticCategoryListType(), new File(baseDirectory.getAbsolutePath().concat("/acousticcategory.xml")));
         LOGGER.info("FINISHED with acoustic category!");
 
         writeToFile(equipmentConverter.generateEquipmentElementListType(), new File(baseDirectory.getAbsolutePath().concat("/equipment.xml")));
@@ -102,6 +102,10 @@ public class ReferenceLoaderServiceImpl implements ReferenceLoaderServiceInterfa
 
         List<KeyValueElementListType> udpLists = udpListConverter.getUdpLists();
         for (KeyValueElementListType keyValueElementListType : udpLists) {
+            String useName = keyValueElementListType.getLookupName();
+            if (config.containsKey("diffname.".concat(useName))) {
+                keyValueElementListType.setLookupName(config.getString("diffname.".concat(useName)));
+            }
             writeToFile(keyValueElementListType, new File(baseDirectory.getAbsolutePath().concat("/").concat(keyValueElementListType.getLookupName().replace("/", "_")).concat(".xml")));
         }
         LOGGER.info("FINISHED with udp lists!");
@@ -109,7 +113,7 @@ public class ReferenceLoaderServiceImpl implements ReferenceLoaderServiceInterfa
 
     private void writeToFile(Object taxaList, File file) {
         try {
-            JAXBContext ctx = JAXBContext.newInstance("no.imr.nmdapi.generic.nmdreference.domain.v1");
+            JAXBContext ctx = JAXBContext.newInstance("no.imr.commons.nmdreference.domain.v1");
             Marshaller marshaller = ctx.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.marshal(taxaList, file);

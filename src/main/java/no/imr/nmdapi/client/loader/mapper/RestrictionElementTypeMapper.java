@@ -2,7 +2,7 @@ package no.imr.nmdapi.client.loader.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.RestrictionElementType;
+import no.imr.commons.nmdreference.domain.v1.RestrictionElementType;
 import org.springframework.jdbc.core.RowMapper;
 
 /**

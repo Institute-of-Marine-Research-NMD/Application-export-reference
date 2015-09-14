@@ -3,11 +3,11 @@ package no.imr.nmdapi.client.loader.dao;
 import java.util.Date;
 import java.util.List;
 import javax.sql.DataSource;
+import no.imr.commons.nmdreference.domain.v1.KeyValueElementType;
 import no.imr.nmdapi.client.loader.mapper.DateMapper;
 import no.imr.nmdapi.client.loader.mapper.KeyValueElementTypeMapper;
 import no.imr.nmdapi.client.loader.mapper.UDPListMapper;
 import no.imr.nmdapi.client.loader.pojo.UDPList;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.KeyValueElementType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 

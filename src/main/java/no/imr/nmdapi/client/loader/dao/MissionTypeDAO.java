@@ -3,9 +3,9 @@ package no.imr.nmdapi.client.loader.dao;
 import java.sql.Date;
 import java.util.List;
 import javax.sql.DataSource;
+import no.imr.commons.nmdreference.domain.v1.MissionTypeElementType;
 import no.imr.nmdapi.client.loader.mapper.DateMapper;
 import no.imr.nmdapi.client.loader.mapper.MissionTypeElementTypeMapper;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.MissionTypeElementType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 

@@ -19,18 +19,28 @@
         <repository>
             <id>nexus-release</id>
             <name>Nexus release repository for IMR</name>
-            <url>http://javadev.imr.no:8081/nexus/content/repositories/releases/</url>
-        </repository>
-        <repository>
-            <id>repository.springsource.milestone</id>
-            <name>SpringSource Milestone Repository</name>
-            <url>http://repo.springsource.org/milestone</url>
+            <url>http://build.imr.no/nexus/content/repositories/releases/</url>
         </repository>
     </repositories>
     <dependencies>
         <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>1.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
         <dependency>
@@ -49,10 +59,9 @@
             <version>1.1.5</version>
         </dependency>
         <dependency>
-            <groupId>no.imr.nmdapi.generic</groupId>
-            <artifactId>nmdreference</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <type>jar</type>
+            <groupId>no.imr.nmd.commons.reference.jaxb</groupId>
+            <artifactId>commons-reference-jaxb</artifactId>
+            <version>1.0.2</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -97,10 +106,11 @@
             <version>${camel.version}</version>
         </dependency>
         <dependency>
-            <groupId>postgresql</groupId>
+            <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>9.2-1002.jdbc4</version>
+            <version>9.2-1003-jdbc4</version>
         </dependency>
+
     </dependencies>
 
     <build>

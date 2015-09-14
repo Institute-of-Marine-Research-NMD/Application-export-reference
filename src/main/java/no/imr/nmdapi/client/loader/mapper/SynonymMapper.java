@@ -2,8 +2,8 @@ package no.imr.nmdapi.client.loader.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.TaxaElementType;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.TaxaElementType.TaxaSynonyms.Synonym;
+import no.imr.commons.nmdreference.domain.v1.TaxaElementType;
+import no.imr.commons.nmdreference.domain.v1.TaxaElementType.TaxaSynonyms.Synonym;
 import org.springframework.jdbc.core.RowMapper;
 
 /**

@@ -2,9 +2,9 @@ package no.imr.nmdapi.client.loader.convert;
 
 import java.sql.Date;
 import java.util.List;
+import no.imr.commons.nmdreference.domain.v1.PlatformElementListType;
+import no.imr.commons.nmdreference.domain.v1.PlatformElementType;
 import no.imr.nmdapi.client.loader.dao.PlatformDAO;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.PlatformElementListType;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.PlatformElementType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

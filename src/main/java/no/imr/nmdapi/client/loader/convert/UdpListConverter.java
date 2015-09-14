@@ -3,10 +3,10 @@ package no.imr.nmdapi.client.loader.convert;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import no.imr.commons.nmdreference.domain.v1.KeyValueElementListType;
+import no.imr.commons.nmdreference.domain.v1.KeyValueElementType;
 import no.imr.nmdapi.client.loader.dao.UDPListDAO;
 import no.imr.nmdapi.client.loader.pojo.UDPList;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.KeyValueElementListType;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.KeyValueElementType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -25,7 +25,6 @@ public class UdpListConverter {
         for (UDPList uDPList : lists) {
             KeyValueElementListType keyValueList = new KeyValueElementListType();
             keyValueList.setDescription(uDPList.getDescription());
-            keyValueList.setTableName(uDPList.getName());
             keyValueList.setLookupName(uDPList.getUdpName());
             List<KeyValueElementType> values = udplistDAO.getKeyValueElements(uDPList.getId());
             keyValueList.getElement().addAll(values);

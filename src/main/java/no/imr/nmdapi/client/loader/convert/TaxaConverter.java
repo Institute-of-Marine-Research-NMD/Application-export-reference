@@ -2,17 +2,17 @@ package no.imr.nmdapi.client.loader.convert;
 
 import java.sql.Date;
 import java.util.List;
+import no.imr.commons.nmdreference.domain.v1.KeyValueElementType;
+import no.imr.commons.nmdreference.domain.v1.RestrictionElementType;
+import no.imr.commons.nmdreference.domain.v1.RestrictionsElementType;
+import no.imr.commons.nmdreference.domain.v1.SexEnum;
+import no.imr.commons.nmdreference.domain.v1.StockElementType;
+import no.imr.commons.nmdreference.domain.v1.TaxaElementListType;
+import no.imr.commons.nmdreference.domain.v1.TaxaElementType;
+import no.imr.commons.nmdreference.domain.v1.TaxaListElementType;
+import no.imr.commons.nmdreference.domain.v1.TaxaListsElementType;
 import no.imr.nmdapi.client.loader.dao.TaxaDAO;
 import no.imr.nmdapi.client.loader.pojo.SpesialstadieLists;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.KeyValueElementType;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.RestrictionElementType;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.RestrictionsElementType;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.SexEnum;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.StockElementType;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.TaxaElementListType;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.TaxaElementType;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.TaxaListElementType;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.TaxaListsElementType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

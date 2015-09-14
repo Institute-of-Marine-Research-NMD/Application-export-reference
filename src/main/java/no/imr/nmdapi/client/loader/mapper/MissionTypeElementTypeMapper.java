@@ -3,7 +3,7 @@ package no.imr.nmdapi.client.loader.mapper;
 import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import no.imr.nmdapi.generic.nmdreference.domain.v1.MissionTypeElementType;
+import no.imr.commons.nmdreference.domain.v1.MissionTypeElementType;
 import org.springframework.jdbc.core.RowMapper;
 
 /**
