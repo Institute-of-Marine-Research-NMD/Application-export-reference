@@ -24,7 +24,15 @@ public class TaxaConverter implements ConvertInterface {
 
     @Autowired
     private TaxaDAO taxaDAO;
+    private static final int MALE_SEX = 2;
+    private static final int FEMALE_SEX = 1;
+    private static final int BOTH_SEXES = 0;
 
+    /**
+     * convert taxas into TaxaElementListType
+     *
+     * @return
+     */
     @Override
     public TaxaElementListType convert() {
         TaxaElementListType taxaList = new TaxaElementListType();
@@ -41,14 +49,16 @@ public class TaxaConverter implements ConvertInterface {
                 TaxaListElementType tlet = new TaxaListElementType();
                 tlet.setName(spesialstadieLists.getName());
                 switch (spesialstadieLists.getSexdependent()) {
-                    case 0:
+                    case BOTH_SEXES:
                         tlet.setSex(SexEnum.BOTH);
                         break;
-                    case 1:
+                    case FEMALE_SEX:
                         tlet.setSex(SexEnum.FEMALE);
                         break;
-                    case 2:
+                    case MALE_SEX:
                         tlet.setSex(SexEnum.MALE);
+                        break;
+                    default:
                         break;
                 }
 
@@ -80,4 +90,5 @@ public class TaxaConverter implements ConvertInterface {
         }
         return taxaList;
     }
+
 }

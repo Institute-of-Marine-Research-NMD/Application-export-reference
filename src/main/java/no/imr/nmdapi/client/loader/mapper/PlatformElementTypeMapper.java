@@ -31,8 +31,6 @@ public class PlatformElementTypeMapper implements RowMapper<PlatformElementType>
         PlatformType platformType = new PlatformType();
         platformType.setValue(BigInteger.valueOf(rs.getInt("platformtype")));
         return platform;
-//        platformCodeDAO.addPlatformCodes(platform);
-        //        platformList.getPlatform().add(platform);
     }
 
 }

@@ -17,6 +17,11 @@ public class AcousticCategoryConverter implements ConvertInterface{
     @Autowired
     private AcousticCategoryDAO acousticDAO;
 
+        /**
+     * converts acoustic categories to a list of AcousticCategoryElementListType
+     *
+     * @return
+     */
     @Override
     public AcousticCategoryElementListType convert() {
         AcousticCategoryElementListType acListType = new AcousticCategoryElementListType();

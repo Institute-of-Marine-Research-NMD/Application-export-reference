@@ -15,6 +15,11 @@ public class MissionTypeConverter implements ConvertInterface {
     @Autowired
     private MissionTypeDAO missionTypeDAO;
 
+    /**
+     * convert mission types into MissionTypeElementListType
+     *
+     * @return
+     */
     @Override
     public MissionTypeElementListType convert() {
         MissionTypeElementListType elementList = new MissionTypeElementListType();

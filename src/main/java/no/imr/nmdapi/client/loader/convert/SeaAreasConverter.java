@@ -15,6 +15,11 @@ public class SeaAreasConverter implements ConvertInterface {
     @Autowired
     private SeaAreasDAO seaAreasDAO;
 
+    /**
+     * Returns all sea areas from the database
+     *
+     * @return
+     */
     @Override
     public SeaAreasElementListType convert() {
         SeaAreasElementListType elementList = new SeaAreasElementListType();

@@ -32,6 +32,11 @@ public class InstitutionDAO {
         return jdbcTemplate.query("select id, nation, institution, instname, instadress, instphone, instemail from nmdreference.institution", new InstitutionElementTypeMapper());
     }
 
+    /**
+     * Get last changed for institution
+     *
+     * @return
+     */
     public Date getLastChanged() {
         return (Date) jdbcTemplate.query("SELECT max(last_edited) as last_edited FROM nmdreference.institution", new DateMapper()).get(0);
     }

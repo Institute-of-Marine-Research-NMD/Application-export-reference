@@ -32,6 +32,11 @@ public class EquipmentDAO {
         return jdbcTemplate.query("select id, code, name, area, description from nmdreference.equipment", new EquipmentElementTypeMapper());
     }
 
+    /**
+     * Get last changed for equipment
+     *
+     * @return
+     */
     public Date getLastChanged() {
         return (Date) jdbcTemplate.query("SELECT max(last_edited) as last_edited FROM nmdreference.equipment", new DateMapper()).get(0);
     }

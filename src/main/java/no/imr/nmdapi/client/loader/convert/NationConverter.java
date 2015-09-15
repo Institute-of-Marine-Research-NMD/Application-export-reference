@@ -15,6 +15,11 @@ public class NationConverter implements ConvertInterface {
     @Autowired
     private NationDAO nationDAO;
 
+    /**
+     * convert nations into NationElementListType
+     *
+     * @return
+     */
     @Override
     public NationElementListType convert() {
         NationElementListType nations = new NationElementListType();

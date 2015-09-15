@@ -22,51 +22,101 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ConverterConfig {
 
+    /**
+     * AcousticCategoryConverter
+     *
+     * @return
+     */
     @Bean
     public AcousticCategoryConverter acousticCategoryConverter() {
         return new AcousticCategoryConverter();
     }
 
+    /**
+     * PlatformConverter
+     *
+     * @return
+     */
     @Bean
     public PlatformConverter platformConverter() {
         return new PlatformConverter();
     }
 
+    /**
+     * TaxaConverter
+     *
+     * @return
+     */
     @Bean
     public TaxaConverter taxaConverter() {
         return new TaxaConverter();
     }
 
+    /**
+     * EquipmentConverter
+     *
+     * @return
+     */
     @Bean
     public EquipmentConverter equipmentConverter() {
         return new EquipmentConverter();
     }
 
+    /**
+     * InstitutionConverter
+     *
+     * @return
+     */
     @Bean
     public InstitutionConverter institutionConverter() {
         return new InstitutionConverter();
     }
 
+    /**
+     * LanguageConverter
+     *
+     * @return
+     */
     @Bean
     public LanguageConverter languageConverter() {
         return new LanguageConverter();
     }
 
+    /**
+     * MissionTypeConverter
+     *
+     * @return
+     */
     @Bean
     public MissionTypeConverter missionTypeConverter() {
         return new MissionTypeConverter();
     }
 
+    /**
+     * NationConverter
+     *
+     * @return
+     */
     @Bean
     public NationConverter nationConverter() {
         return new NationConverter();
     }
 
+    /**
+     * SeaAreasConverter
+     *
+     * @return
+     */
     @Bean
     public SeaAreasConverter seaAreasConverter() {
         return new SeaAreasConverter();
     }
 
+    /**
+     * UdpListConverter
+     *
+     * @return
+     */
     @Bean
     public UdpListConverter udpListConverter() {
         return new UdpListConverter();

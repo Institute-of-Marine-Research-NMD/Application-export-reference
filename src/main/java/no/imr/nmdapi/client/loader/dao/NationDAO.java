@@ -32,6 +32,11 @@ public class NationDAO {
         return jdbcTemplate.query("select id, nation, nationioc, nationname, pgnapescode FROM nmdreference.nation", new NationElementTypeMapper());
     }
 
+    /**
+     * Get last changed for nation
+     *
+     * @return
+     */
     public Date getLastChanged() {
         return (Date) jdbcTemplate.query("SELECT max(last_edited) as last_edited FROM nmdreference.nation", new DateMapper()).get(0);
     }

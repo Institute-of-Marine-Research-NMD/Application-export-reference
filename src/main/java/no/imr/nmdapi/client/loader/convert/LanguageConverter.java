@@ -15,6 +15,11 @@ public class LanguageConverter implements ConvertInterface {
     @Autowired
     private LanguageDAO languageDAO;
 
+    /**
+     * converts language into LanguageElementListType
+     *
+     * @return
+     */
     @Override
     public LanguageElementListType convert() {
         LanguageElementListType langList = new LanguageElementListType();

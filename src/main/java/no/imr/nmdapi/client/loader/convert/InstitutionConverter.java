@@ -15,6 +15,11 @@ public class InstitutionConverter implements ConvertInterface {
     @Autowired
     private InstitutionDAO institutionDAO;
 
+    /**
+     * converts intitutions into InstitutionElementListType
+     *
+     * @return
+     */
     @Override
     public InstitutionElementListType convert() {
         InstitutionElementListType institutionList = new InstitutionElementListType();

@@ -26,6 +26,11 @@ public class UDPListDAO {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    /**
+     * Get all udp lists
+     *
+     * @return
+     */
     public List<UDPList> getUDPLists() {
         return jdbcTemplate.query("select id, name, description, udp_name FROM nmdreference.u_udp", new UDPListMapper());
     }
@@ -41,6 +46,12 @@ public class UDPListDAO {
         return jdbcTemplate.query(GET_UDP_LIST_ELEMENTS, new KeyValueElementTypeMapper(), id);
     }
 
+    /**
+     * get last edited for all a given udp list
+     *
+     * @param id
+     * @return
+     */
     public Date getLastEdited(String id) {
         return jdbcTemplate.query("select max(last_edited) as last_edited from nmdreference.u_udplist where id_u_udp = ?", new DateMapper(), id).get(0);
     }

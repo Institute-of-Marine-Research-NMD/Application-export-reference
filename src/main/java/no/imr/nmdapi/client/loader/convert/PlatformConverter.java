@@ -17,6 +17,11 @@ public class PlatformConverter implements ConvertInterface {
     @Autowired
     private PlatformDAO platformDAO;
 
+    /**
+     * convert platforms into PlatformElementListType
+     *
+     * @return
+     */
     @Override
     public PlatformElementListType convert() {
         PlatformElementListType platformList = new PlatformElementListType();

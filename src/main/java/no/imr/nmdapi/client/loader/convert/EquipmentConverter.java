@@ -15,6 +15,11 @@ public class EquipmentConverter implements ConvertInterface {
     @Autowired
     private EquipmentDAO equipmentDAO;
 
+        /**
+     * converts equipments into EquipmentElementListType
+     *
+     * @return
+     */
     @Override
     public EquipmentElementListType convert() {
         EquipmentElementListType equipmentList = new EquipmentElementListType();

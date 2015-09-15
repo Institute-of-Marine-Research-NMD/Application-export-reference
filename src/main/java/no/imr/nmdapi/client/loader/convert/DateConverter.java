@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import org.slf4j.LoggerFactory;
 
 /**
  * Utility class for converting date objects into XMLGregorianCalendar objects
@@ -13,6 +14,15 @@ import javax.xml.datatype.XMLGregorianCalendar;
  */
 public class DateConverter {
 
+    private DateConverter() {
+    }
+
+    /**
+     * converts date objects into XMLGregorianCalendar objects
+     *
+     * @param date
+     * @return
+     */
     public static XMLGregorianCalendar convertDate(Date date) {
         XMLGregorianCalendar result = null;
         if (date != null) {
@@ -23,7 +33,7 @@ public class DateConverter {
             try {
                 result = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal);
             } catch (DatatypeConfigurationException ex) {
-
+                LoggerFactory.getLogger(DateConverter.class).error("Unable to convert date: " + date.toString(), ex);
             }
 
         }
