@@ -17,6 +17,12 @@ public class DateConverter {
     private DateConverter() {
     }
 
+    /**
+     * converts date objects into XMLGregorianCalendar objects
+     *
+     * @param date
+     * @return
+     */
     public static XMLGregorianCalendar convertDate(Date date) {
         XMLGregorianCalendar result = null;
         if (date != null) {

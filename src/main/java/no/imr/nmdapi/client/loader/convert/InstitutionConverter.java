@@ -15,6 +15,11 @@ public class InstitutionConverter {
     @Autowired
     private InstitutionDAO institutionDAO;
 
+    /**
+     * converts intitutions into InstitutionElementListType
+     *
+     * @return
+     */
     public InstitutionElementListType getInstitutionElementListType() {
         InstitutionElementListType institutionList = new InstitutionElementListType();
         institutionList.getElement().addAll(institutionDAO.getInstitutions());

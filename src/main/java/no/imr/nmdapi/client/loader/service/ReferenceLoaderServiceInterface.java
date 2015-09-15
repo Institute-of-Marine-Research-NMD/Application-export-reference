@@ -6,5 +6,8 @@ package no.imr.nmdapi.client.loader.service;
  */
 public interface ReferenceLoaderServiceInterface {
 
+    /**
+     * Loads all reference data from the database into xml files
+     */
     void loadReferenceToXml();
 }

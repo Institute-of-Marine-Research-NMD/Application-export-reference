@@ -18,6 +18,11 @@ public class UdpListConverter {
     @Autowired
     private UDPListDAO udplistDAO;
 
+    /**
+     * Return all udp lists as key value element list type
+     *
+     * @return
+     */
     public List<KeyValueElementListType> getUdpLists() {
         List<KeyValueElementListType> udplists = new ArrayList<>();
 

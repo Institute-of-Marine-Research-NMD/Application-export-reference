@@ -1,5 +1,3 @@
-/*
- */
 package no.imr.nmdapi.client.loader.dao;
 
 import java.sql.Date;
@@ -114,6 +112,11 @@ public class TaxaDAO {
         return jdbcTemplate.query(GET_STOCK, new StockElementTypeMapper(), id);
     }
 
+    /**
+     * Get the last edited date for taxa
+     *
+     * @return
+     */
     public Date getLastChanged() {
         return (Date) jdbcTemplate.query(LAST_EDITED, new DateMapper()).get(0);
     }

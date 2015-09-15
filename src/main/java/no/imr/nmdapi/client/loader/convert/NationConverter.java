@@ -15,6 +15,11 @@ public class NationConverter {
     @Autowired
     private NationDAO nationDAO;
 
+    /**
+     * convert nations into NationElementListType
+     *
+     * @return
+     */
     public NationElementListType getNationElementListType() {
         NationElementListType nations = new NationElementListType();
         nations.getElement().addAll(nationDAO.getNations());

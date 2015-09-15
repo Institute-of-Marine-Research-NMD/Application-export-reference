@@ -32,6 +32,11 @@ public class LanguageDAO {
         return jdbcTemplate.query("SELECT name, id, iso6391 from nmdreference.language", new LanguageElementTypeMapper());
     }
 
+    /**
+     * Get last changed for language
+     *
+     * @return
+     */
     public Date getLastChanged() {
         return (Date) jdbcTemplate.query("SELECT max(last_edited) as last_edited FROM nmdreference.language", new DateMapper()).get(0);
     }

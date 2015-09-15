@@ -15,6 +15,11 @@ public class SeaAreasConverter {
     @Autowired
     private SeaAreasDAO seaAreasDAO;
 
+    /**
+     * Returns all sea areas from the database
+     *
+     * @return
+     */
     public SeaAreasElementListType getSeaAreasElementListType() {
         SeaAreasElementListType elementList = new SeaAreasElementListType();
         elementList.getElement().addAll(seaAreasDAO.getSeaAreas());

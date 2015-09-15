@@ -28,6 +28,11 @@ public class TaxaConverter {
     private static final int FEMALE_SEX = 1;
     private static final int BOTH_SEXES = 0;
 
+    /**
+     * convert taxas into TaxaElementListType
+     *
+     * @return
+     */
     public TaxaElementListType generateTaxaJaxBData() {
         TaxaElementListType taxaList = new TaxaElementListType();
         List<TaxaElementType> taxas = taxaDAO.getAllTaxa();

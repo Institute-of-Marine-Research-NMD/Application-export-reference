@@ -32,6 +32,11 @@ public class AcousticCategoryDAO {
         return jdbcTemplate.query("SELECT id, acousticcategory, initials, englishinitials, commonname, englishname, pgnapescode FROM nmdreference.acousticcategory", new AcousticCategoryElementTypeMapper());
     }
 
+    /**
+     * Get last changed for acoustic category
+     *
+     * @return
+     */
     public Date getLastChanged() {
         return (Date) jdbcTemplate.query("SELECT max(last_edited) as last_edited FROM nmdreference.acousticcategory", new DateMapper()).get(0);
     }

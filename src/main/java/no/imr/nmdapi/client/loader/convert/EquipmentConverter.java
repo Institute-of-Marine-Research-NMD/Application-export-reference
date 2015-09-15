@@ -15,6 +15,11 @@ public class EquipmentConverter {
     @Autowired
     private EquipmentDAO equipmentDAO;
 
+    /**
+     * converts equipments into EquipmentElementListType
+     *
+     * @return
+     */
     public EquipmentElementListType generateEquipmentElementListType() {
         EquipmentElementListType equipmentList = new EquipmentElementListType();
         equipmentList.getElement().addAll(equipmentDAO.getEquipments());

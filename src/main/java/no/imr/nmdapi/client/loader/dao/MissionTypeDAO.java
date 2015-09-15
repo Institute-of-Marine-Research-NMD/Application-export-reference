@@ -32,6 +32,11 @@ public class MissionTypeDAO {
         return jdbcTemplate.query("select id, code, description from nmdreference.missiontype", new MissionTypeElementTypeMapper());
     }
 
+    /**
+     * Get last changed for mission type
+     *
+     * @return
+     */
     public Date getLastChanged() {
         return (Date) jdbcTemplate.query("SELECT max(last_edited) as last_edited FROM nmdreference.missiontype", new DateMapper()).get(0);
     }

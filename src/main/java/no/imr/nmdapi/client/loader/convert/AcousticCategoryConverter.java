@@ -17,6 +17,11 @@ public class AcousticCategoryConverter {
     @Autowired
     private AcousticCategoryDAO acousticDAO;
 
+    /**
+     * converts acoustic categories to a list of AcousticCategoryElementListType
+     *
+     * @return
+     */
     public AcousticCategoryElementListType generateAcousticCategoryListType() {
         AcousticCategoryElementListType acListType = new AcousticCategoryElementListType();
         List<AcousticCategoryElementType> acList = acousticDAO.getAcousticCategories();

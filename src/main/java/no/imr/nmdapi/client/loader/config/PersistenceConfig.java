@@ -27,6 +27,11 @@ public class PersistenceConfig {
     @Autowired
     private org.apache.commons.configuration.Configuration config;
 
+    /**
+     * Datasource bean
+     *
+     * @return
+     */
     @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
@@ -40,51 +45,101 @@ public class PersistenceConfig {
         return dataSource;
     }
 
+    /**
+     * Platform data access object
+     *
+     * @return
+     */
     @Bean
     public PlatformDAO platformDAO() {
         return new PlatformDAO();
     }
 
+    /**
+     * Taxa data access object
+     *
+     * @return
+     */
     @Bean
     public TaxaDAO taxaDAO() {
         return new TaxaDAO();
     }
 
+    /**
+     * Acoustic category data access object
+     *
+     * @return
+     */
     @Bean
     public AcousticCategoryDAO acousticCategoryDAO() {
         return new AcousticCategoryDAO();
     }
 
+    /**
+     * Equipment data access object
+     *
+     * @return
+     */
     @Bean
     public EquipmentDAO equipmentDAO() {
         return new EquipmentDAO();
     }
 
+    /**
+     * Institution data access object
+     *
+     * @return
+     */
     @Bean
     public InstitutionDAO institutionDAO() {
         return new InstitutionDAO();
     }
 
+    /**
+     * Language data access object
+     *
+     * @return
+     */
     @Bean
     public LanguageDAO languageDAO() {
         return new LanguageDAO();
     }
 
+    /**
+     * Mission type data access object
+     *
+     * @return
+     */
     @Bean
     public MissionTypeDAO missionTypeDAO() {
         return new MissionTypeDAO();
     }
 
+    /**
+     * Nation data access object
+     *
+     * @return
+     */
     @Bean
     public NationDAO nationDAO() {
         return new NationDAO();
     }
 
+    /**
+     * Sea areas data access object
+     *
+     * @return
+     */
     @Bean
     public SeaAreasDAO seaAreasDAO() {
         return new SeaAreasDAO();
     }
 
+    /**
+     * UDP list data access object
+     *
+     * @return
+     */
     @Bean
     public UDPListDAO udpListDAO() {
         return new UDPListDAO();

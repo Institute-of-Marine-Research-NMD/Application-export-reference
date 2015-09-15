@@ -15,6 +15,11 @@ public class LanguageConverter {
     @Autowired
     private LanguageDAO languageDAO;
 
+    /**
+     * converts language into LanguageElementListType
+     *
+     * @return
+     */
     public LanguageElementListType getLanguageElementList() {
         LanguageElementListType langList = new LanguageElementListType();
         langList.getElement().addAll(languageDAO.getLanguageElementType());

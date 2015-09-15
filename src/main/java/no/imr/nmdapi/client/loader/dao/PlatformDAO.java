@@ -52,6 +52,11 @@ public class PlatformDAO {
         return jdbcTemplate.query(GET_PLATFORM_CODES_FOR_PLATFORM, new PlatformCodeMapper(), id);
     }
 
+    /**
+     * Get the last changed date for all platforms
+     *
+     * @return
+     */
     public Date getLastChanged() {
         return (Date) jdbcTemplate.query("select max(a) as last_edited from (select max(plat.last_edited) as a from nmdreference.platform plat union select max(code.last_edited) as b from nmdreference.platformcode code) n", new DateMapper()).get(0);
     }

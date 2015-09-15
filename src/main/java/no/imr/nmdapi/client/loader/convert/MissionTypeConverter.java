@@ -15,6 +15,11 @@ public class MissionTypeConverter {
     @Autowired
     private MissionTypeDAO missionTypeDAO;
 
+    /**
+     * convert mission types into MissionTypeElementListType
+     *
+     * @return
+     */
     public MissionTypeElementListType generateMissionTypeElementList() {
         MissionTypeElementListType elementList = new MissionTypeElementListType();
         elementList.getElement().addAll(missionTypeDAO.getMissionTypes());

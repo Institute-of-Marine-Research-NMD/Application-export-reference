@@ -32,6 +32,11 @@ public class SeaAreasDAO {
         return jdbcTemplate.query("select id, name, description from nmdreference.seaarea", new SeaAreasElementTypeMapper());
     }
 
+    /**
+     * Get the last edited date for sea areas
+     *
+     * @return
+     */
     public Date getLastChanged() {
         return (Date) jdbcTemplate.query("SELECT max(last_edited) as last_edited FROM nmdreference.seaarea", new DateMapper()).get(0);
     }

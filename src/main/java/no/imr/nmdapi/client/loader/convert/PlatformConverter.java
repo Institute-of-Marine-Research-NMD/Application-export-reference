@@ -17,6 +17,11 @@ public class PlatformConverter {
     @Autowired
     private PlatformDAO platformDAO;
 
+    /**
+     * convert platforms into PlatformElementListType
+     *
+     * @return
+     */
     public PlatformElementListType getPlatformList() {
         PlatformElementListType platformList = new PlatformElementListType();
         List<PlatformElementType> platformElementTypes = platformDAO.processPlatforms();
