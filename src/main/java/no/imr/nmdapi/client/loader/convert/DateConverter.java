@@ -27,7 +27,7 @@ public class DateConverter {
             try {
                 result = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal);
             } catch (DatatypeConfigurationException ex) {
-                LoggerFactory.getLogger(DateConverter.class).error("Unable to convert date: " + date.toString());
+                LoggerFactory.getLogger(DateConverter.class).error("Unable to convert date: " + date.toString(), ex);
             }
 
         }

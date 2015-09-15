@@ -24,6 +24,9 @@ public class TaxaConverter {
 
     @Autowired
     private TaxaDAO taxaDAO;
+    private static final int MALE_SEX = 2;
+    private static final int FEMALE_SEX = 1;
+    private static final int BOTH_SEXES = 0;
 
     public TaxaElementListType generateTaxaJaxBData() {
         TaxaElementListType taxaList = new TaxaElementListType();
@@ -81,7 +84,5 @@ public class TaxaConverter {
         }
         return taxaList;
     }
-    private static final int MALE_SEX = 2;
-    private static final int FEMALE_SEX = 1;
-    private static final int BOTH_SEXES = 0;
+
 }
