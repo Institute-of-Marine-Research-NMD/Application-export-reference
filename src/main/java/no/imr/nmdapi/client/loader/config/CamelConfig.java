@@ -20,15 +20,14 @@ public class CamelConfig extends SingleRouteCamelConfiguration implements Initia
             @Override
             public void configure() {
                 from("timer://harvesttimer?fixedRate=true&period=86400000")
-                        //                        .errorHandler(deadLetterChannel("jms:queue:dead").maximumRedeliveries(3).redeliveryDelay(30000))
                         .to("referenceLoaderService");
-//                        .to("log:end?level=INFO");
             }
         };
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        // no properties loaded so not used
     }
 
 }

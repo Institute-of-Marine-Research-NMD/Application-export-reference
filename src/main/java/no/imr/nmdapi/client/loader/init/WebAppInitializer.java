@@ -1,10 +1,7 @@
 package no.imr.nmdapi.client.loader.init;
 
-import java.util.logging.Level;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import no.imr.framework.logging.logback.initalize.InitalizeLogbackHandler;
 import no.imr.framework.logging.slf4j.exceptions.LoggerInitalizationException;
 import org.slf4j.Logger;
@@ -26,8 +23,7 @@ public class WebAppInitializer extends AbstractDispatcherServletInitializer {
 
     @Override
     protected WebApplicationContext createServletApplicationContext() {
-        AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-        return ctx;
+        return new AnnotationConfigWebApplicationContext();
     }
 
     @Override
@@ -38,14 +34,6 @@ public class WebAppInitializer extends AbstractDispatcherServletInitializer {
     @Override
     protected WebApplicationContext createRootApplicationContext() {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-        
-//        try {
-//            JAXBContext ctxe = JAXBContext.newInstance("no.imr.nmdapi.generic.nmdreference.domain.v1");
-//        } catch (JAXBException ex) {
-//            java.util.logging.Logger.getLogger(WebAppInitializer.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        
-        
         ctx.scan("no.imr.nmdapi.client.loader.config", "no.imr.nmdapi.client.loader.service");
         return ctx;
     }

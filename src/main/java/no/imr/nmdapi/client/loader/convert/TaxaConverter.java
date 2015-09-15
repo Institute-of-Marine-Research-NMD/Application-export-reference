@@ -40,14 +40,16 @@ public class TaxaConverter {
                 TaxaListElementType tlet = new TaxaListElementType();
                 tlet.setName(spesialstadieLists.getName());
                 switch (spesialstadieLists.getSexdependent()) {
-                    case 0:
+                    case BOTH_SEXES:
                         tlet.setSex(SexEnum.BOTH);
                         break;
-                    case 1:
+                    case FEMALE_SEX:
                         tlet.setSex(SexEnum.FEMALE);
                         break;
-                    case 2:
+                    case MALE_SEX:
                         tlet.setSex(SexEnum.MALE);
+                        break;
+                    default:
                         break;
                 }
 
@@ -79,4 +81,7 @@ public class TaxaConverter {
         }
         return taxaList;
     }
+    private static final int MALE_SEX = 2;
+    private static final int FEMALE_SEX = 1;
+    private static final int BOTH_SEXES = 0;
 }
