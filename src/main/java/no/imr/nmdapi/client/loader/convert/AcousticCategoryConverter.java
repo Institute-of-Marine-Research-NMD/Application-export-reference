@@ -12,12 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author sjurl
  */
-public class AcousticCategoryConverter {
+public class AcousticCategoryConverter implements ConvertInterface{
 
     @Autowired
     private AcousticCategoryDAO acousticDAO;
 
-    public AcousticCategoryElementListType generateAcousticCategoryListType() {
+    @Override
+    public AcousticCategoryElementListType convert() {
         AcousticCategoryElementListType acListType = new AcousticCategoryElementListType();
         List<AcousticCategoryElementType> acList = acousticDAO.getAcousticCategories();
         acListType.getElement().addAll(acList);

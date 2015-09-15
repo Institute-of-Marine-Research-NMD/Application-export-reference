@@ -10,12 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author sjurl
  */
-public class MissionTypeConverter {
+public class MissionTypeConverter implements ConvertInterface {
 
     @Autowired
     private MissionTypeDAO missionTypeDAO;
 
-    public MissionTypeElementListType generateMissionTypeElementList() {
+    @Override
+    public MissionTypeElementListType convert() {
         MissionTypeElementListType elementList = new MissionTypeElementListType();
         elementList.getElement().addAll(missionTypeDAO.getMissionTypes());
         elementList.setLastChanged(DateConverter.convertDate((Date) missionTypeDAO.getLastChanged()));

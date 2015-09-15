@@ -10,12 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author sjurl
  */
-public class NationConverter {
+public class NationConverter implements ConvertInterface {
 
     @Autowired
     private NationDAO nationDAO;
 
-    public NationElementListType getNationElementListType() {
+    @Override
+    public NationElementListType convert() {
         NationElementListType nations = new NationElementListType();
         nations.getElement().addAll(nationDAO.getNations());
         nations.setLastChanged(DateConverter.convertDate((Date) nationDAO.getLastChanged()));

@@ -7,6 +7,7 @@ import no.imr.nmdapi.client.loader.dao.InstitutionDAO;
 import no.imr.nmdapi.client.loader.dao.LanguageDAO;
 import no.imr.nmdapi.client.loader.dao.MissionTypeDAO;
 import no.imr.nmdapi.client.loader.dao.NationDAO;
+import no.imr.nmdapi.client.loader.dao.PersonDAO;
 import no.imr.nmdapi.client.loader.dao.PlatformDAO;
 import no.imr.nmdapi.client.loader.dao.SeaAreasDAO;
 import no.imr.nmdapi.client.loader.dao.TaxaDAO;
@@ -88,5 +89,10 @@ public class PersistenceConfig {
     @Bean
     public UDPListDAO udpListDAO() {
         return new UDPListDAO();
+    }
+
+    @Bean
+    public PersonDAO personDAO() {
+        return new PersonDAO();
     }
 }

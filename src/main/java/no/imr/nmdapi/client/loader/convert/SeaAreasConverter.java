@@ -10,12 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author sjurl
  */
-public class SeaAreasConverter {
+public class SeaAreasConverter implements ConvertInterface {
 
     @Autowired
     private SeaAreasDAO seaAreasDAO;
 
-    public SeaAreasElementListType getSeaAreasElementListType() {
+    @Override
+    public SeaAreasElementListType convert() {
         SeaAreasElementListType elementList = new SeaAreasElementListType();
         elementList.getElement().addAll(seaAreasDAO.getSeaAreas());
         elementList.setLastChanged(DateConverter.convertDate((Date) seaAreasDAO.getLastChanged()));

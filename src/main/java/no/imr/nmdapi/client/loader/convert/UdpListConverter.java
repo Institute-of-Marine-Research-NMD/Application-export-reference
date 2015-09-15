@@ -13,12 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author sjurl
  */
-public class UdpListConverter {
+public class UdpListConverter implements ConvertInterface {
 
     @Autowired
     private UDPListDAO udplistDAO;
 
-    public List<KeyValueElementListType> getUdpLists() {
+    @Override
+    public List<KeyValueElementListType> convert() {
         List<KeyValueElementListType> udplists = new ArrayList<>();
 
         List<UDPList> lists = udplistDAO.getUDPLists();

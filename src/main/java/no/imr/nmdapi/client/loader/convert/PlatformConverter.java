@@ -12,12 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author sjurl
  */
-public class PlatformConverter {
+public class PlatformConverter implements ConvertInterface {
 
     @Autowired
     private PlatformDAO platformDAO;
 
-    public PlatformElementListType getPlatformList() {
+    @Override
+    public PlatformElementListType convert() {
         PlatformElementListType platformList = new PlatformElementListType();
         List<PlatformElementType> platformElementTypes = platformDAO.processPlatforms();
         for (PlatformElementType platformElementType : platformElementTypes) {

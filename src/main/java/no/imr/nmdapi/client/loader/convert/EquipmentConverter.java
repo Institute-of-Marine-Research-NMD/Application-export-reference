@@ -10,12 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author sjurl
  */
-public class EquipmentConverter {
+public class EquipmentConverter implements ConvertInterface {
 
     @Autowired
     private EquipmentDAO equipmentDAO;
 
-    public EquipmentElementListType generateEquipmentElementListType() {
+    @Override
+    public EquipmentElementListType convert() {
         EquipmentElementListType equipmentList = new EquipmentElementListType();
         equipmentList.getElement().addAll(equipmentDAO.getEquipments());
         equipmentList.setLastChanged(DateConverter.convertDate((Date) equipmentDAO.getLastChanged()));

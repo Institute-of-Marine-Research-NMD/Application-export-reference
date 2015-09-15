@@ -10,12 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author sjurl
  */
-public class InstitutionConverter {
+public class InstitutionConverter implements ConvertInterface {
 
     @Autowired
     private InstitutionDAO institutionDAO;
 
-    public InstitutionElementListType getInstitutionElementListType() {
+    @Override
+    public InstitutionElementListType convert() {
         InstitutionElementListType institutionList = new InstitutionElementListType();
         institutionList.getElement().addAll(institutionDAO.getInstitutions());
         institutionList.setLastChanged(DateConverter.convertDate((Date) institutionDAO.getLastChanged()));

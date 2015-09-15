@@ -10,12 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author sjurl
  */
-public class LanguageConverter {
+public class LanguageConverter implements ConvertInterface {
 
     @Autowired
     private LanguageDAO languageDAO;
 
-    public LanguageElementListType getLanguageElementList() {
+    @Override
+    public LanguageElementListType convert() {
         LanguageElementListType langList = new LanguageElementListType();
         langList.getElement().addAll(languageDAO.getLanguageElementType());
         langList.setLastChanged(DateConverter.convertDate((Date) languageDAO.getLastChanged()));

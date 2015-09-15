@@ -20,12 +20,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author sjurl
  */
-public class TaxaConverter {
+public class TaxaConverter implements ConvertInterface {
 
     @Autowired
     private TaxaDAO taxaDAO;
 
-    public TaxaElementListType generateTaxaJaxBData() {
+    @Override
+    public TaxaElementListType convert() {
         TaxaElementListType taxaList = new TaxaElementListType();
         List<TaxaElementType> taxas = taxaDAO.getAllTaxa();
         for (TaxaElementType taxaElementType : taxas) {

@@ -6,6 +6,7 @@ import no.imr.nmdapi.client.loader.convert.InstitutionConverter;
 import no.imr.nmdapi.client.loader.convert.LanguageConverter;
 import no.imr.nmdapi.client.loader.convert.MissionTypeConverter;
 import no.imr.nmdapi.client.loader.convert.NationConverter;
+import no.imr.nmdapi.client.loader.convert.PersonConverter;
 import no.imr.nmdapi.client.loader.convert.PlatformConverter;
 import no.imr.nmdapi.client.loader.convert.SeaAreasConverter;
 import no.imr.nmdapi.client.loader.convert.TaxaConverter;
@@ -69,5 +70,10 @@ public class ConverterConfig {
     @Bean
     public UdpListConverter udpListConverter() {
         return new UdpListConverter();
+    }
+
+    @Bean
+    public PersonConverter personConverter() {
+        return new PersonConverter();
     }
 }
