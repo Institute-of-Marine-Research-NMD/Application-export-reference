@@ -68,7 +68,7 @@ public abstract class ReferenceLoaderServiceImpl {
      */
     public abstract void loadReferenceToXml();
 
-    protected void handle(String datasetName, ConvertInterface ci) {
+    protected synchronized void handle(String datasetName, ConvertInterface ci) {
         File newFile = new File(FileUtils.getTempDirectory().getAbsolutePath().concat("/").concat(datasetName));
         File oldFile = new File(baseDirectory.getAbsolutePath().concat("/").concat(datasetName).concat("/").concat(datasetName).concat(".xml"));
         writeToFile(ci.convert(), newFile);
