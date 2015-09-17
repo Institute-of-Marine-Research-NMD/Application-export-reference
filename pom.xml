@@ -4,7 +4,7 @@
 
     <groupId>no.imr.nmdapi.client.apps</groupId>
     <artifactId>referenceLoader</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>war</packaging>
     <name>Application - NMDReference loader</name>
 
@@ -367,7 +367,7 @@
         <connection>scm:git:git@github.com:Institute-of-Marine-Research-NMD/Application-export-reference.git</connection>
         <url>scm:git:git@github.com:Institute-of-Marine-Research-NMD/Application-export-reference.git</url>
         <developerConnection>scm:git:git@github.com:Institute-of-Marine-Research-NMD/Application-export-reference.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>referenceLoader-1.0.1</tag>
     </scm>
     <distributionManagement>
         <repository>
