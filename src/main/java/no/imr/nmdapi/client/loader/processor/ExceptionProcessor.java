@@ -17,6 +17,11 @@ public class ExceptionProcessor implements Processor {
 
     private final String name;
 
+    /**
+     * Constructor that takes the name of the application
+     *
+     * @param name
+     */
     public ExceptionProcessor(String name) {
         this.name = name;
     }
