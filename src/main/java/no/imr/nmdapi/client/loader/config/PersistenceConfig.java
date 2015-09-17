@@ -148,6 +148,11 @@ public class PersistenceConfig {
         return new UDPListDAO();
     }
 
+    /**
+     * Person data access object
+     *
+     * @return
+     */
     @Bean
     public PersonDAO personDAO() {
         return new PersonDAO();

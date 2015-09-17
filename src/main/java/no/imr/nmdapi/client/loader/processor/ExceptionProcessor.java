@@ -21,6 +21,12 @@ public class ExceptionProcessor implements Processor {
         this.name = name;
     }
 
+    /**
+     * Generates an exception message that can be sent to the error queue
+     *
+     * @param exchange
+     * @throws Exception
+     */
     @Override
     public void process(Exchange exchange) throws Exception {
         Throwable cause = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Throwable.class);

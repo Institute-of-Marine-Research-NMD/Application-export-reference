@@ -122,6 +122,11 @@ public class ConverterConfig {
         return new UdpListConverter();
     }
 
+    /**
+     * Person converter
+     *
+     * @return
+     */
     @Bean
     public PersonConverter personConverter() {
         return new PersonConverter();

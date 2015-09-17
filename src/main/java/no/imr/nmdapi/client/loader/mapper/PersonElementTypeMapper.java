@@ -1,9 +1,7 @@
 package no.imr.nmdapi.client.loader.mapper;
 
-import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import no.imr.commons.nmdreference.domain.v1.AcousticCategoryElementType;
 import no.imr.commons.nmdreference.domain.v1.PersonElementType;
 import org.springframework.jdbc.core.RowMapper;
 
