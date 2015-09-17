@@ -32,6 +32,11 @@ public class PersonDAO {
         return jdbcTemplate.query("SELECT firstname, familyname FROM nmdreference.person", new PersonElementTypeMapper());
     }
 
+    /**
+     * Get the last changed date for persom
+     *
+     * @return
+     */
     public Date getLastChanged() {
         return (Date) jdbcTemplate.query("SELECT max(last_edited) as last_edited FROM nmdreference.person", new DateMapper()).get(0);
     }

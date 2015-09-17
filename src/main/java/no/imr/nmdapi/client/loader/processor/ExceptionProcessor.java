@@ -17,10 +17,21 @@ public class ExceptionProcessor implements Processor {
 
     private final String name;
 
+    /**
+     * Constructor that takes the name of the application
+     *
+     * @param name
+     */
     public ExceptionProcessor(String name) {
         this.name = name;
     }
 
+    /**
+     * Generates an exception message that can be sent to the error queue
+     *
+     * @param exchange
+     * @throws Exception
+     */
     @Override
     public void process(Exchange exchange) throws Exception {
         Throwable cause = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Throwable.class);

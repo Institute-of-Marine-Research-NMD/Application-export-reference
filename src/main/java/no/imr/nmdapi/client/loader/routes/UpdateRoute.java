@@ -17,6 +17,9 @@ public class UpdateRoute extends RouteBuilder {
     @Qualifier("referenceConfig")
     private PropertiesConfiguration configuration;
 
+    private static final int REDELIVERY_DELAY = 30000;
+    private static final int MAXIMUM_REDELIVERIES = 3;
+
     @Override
     public void configure() throws Exception {
         Predicate platform = body(String.class).contains("platform");
@@ -29,7 +32,7 @@ public class UpdateRoute extends RouteBuilder {
         onException(Exception.class).handled(true).process(new ExceptionProcessor(configuration.getString("application.name"))).to("jms:queue:error");
 
         from("jms:queue:export-nmdreference")
-                .errorHandler(deadLetterChannel("jms:queue:dead").maximumRedeliveries(3).redeliveryDelay(30000))
+                .errorHandler(deadLetterChannel("jms:queue:dead").maximumRedeliveries(MAXIMUM_REDELIVERIES).redeliveryDelay(REDELIVERY_DELAY))
                 .choice()
                 .when(body(String.class).in(platform, nation)).to("platformLoader", "nationLoader")
                 .when(body(String.class).contains("acousticcategory")).to("acousticcategoryLoader")
@@ -42,5 +45,4 @@ public class UpdateRoute extends RouteBuilder {
                 .when(body(String.class).contains("udp")).to("udpLoader")
                 .otherwise().to("jms:queue:export-nothandled");
     }
-
 }

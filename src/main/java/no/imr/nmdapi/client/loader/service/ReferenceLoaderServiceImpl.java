@@ -43,24 +43,29 @@ public abstract class ReferenceLoaderServiceImpl {
 
     private File baseDirectory;
     private DatasetsType datasets;
+    private static final String DATASET_FILE_NAME = File.separator.concat("data.xml");
 
     protected void init() {
         baseDirectory = new File(configuration.getString("file.location"));
         if (!baseDirectory.exists()) {
             baseDirectory.mkdirs();
         }
-        File datsetFile = new File(baseDirectory.getAbsolutePath().concat("/data.xml"));
+        File datsetFile = new File(baseDirectory.getAbsolutePath().concat(DATASET_FILE_NAME));
         if (!datsetFile.exists()) {
             DatasetsType dtype = new DatasetsType();
             marshallDatasets(datsetFile.getAbsolutePath(), dtype);
         }
-        datasets = unmarshallDatasets(baseDirectory.getAbsolutePath().concat("/data.xml"));
+        datasets = unmarshallDatasets(baseDirectory.getAbsolutePath().concat(DATASET_FILE_NAME));
     }
 
     protected void finish() {
-        marshallDatasets(baseDirectory.getAbsolutePath().concat("/data.xml"), datasets);
+        marshallDatasets(baseDirectory.getAbsolutePath().concat(DATASET_FILE_NAME), datasets);
     }
 
+    /**
+     * Method that must be implemented that should load data from database to
+     * xml
+     */
     public abstract void loadReferenceToXml();
 
     protected void handle(String datasetName, ConvertInterface ci) {

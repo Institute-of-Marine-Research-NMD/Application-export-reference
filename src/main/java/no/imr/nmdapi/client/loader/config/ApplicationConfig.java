@@ -17,6 +17,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ApplicationConfig {
 
+    private static final String CATALINA_BASE = "catalina.base";
+
     /**
      * Configuration object for communicating with property data.
      *
@@ -25,7 +27,7 @@ public class ApplicationConfig {
      */
     @Bean(name = "referenceConfig")
     public PropertiesConfiguration configuration() throws ConfigurationException {
-        PropertiesConfiguration configuration = new PropertiesConfiguration(System.getProperty("catalina.base") + "/conf/nmd_reference_loader.properties");
+        PropertiesConfiguration configuration = new PropertiesConfiguration(System.getProperty(CATALINA_BASE) + "/conf/nmd_reference_loader.properties");
         ReloadingStrategy reloadingStrategy = new FileChangedReloadingStrategy();
         configuration.setReloadingStrategy(reloadingStrategy);
         return configuration;
@@ -39,23 +41,40 @@ public class ApplicationConfig {
      */
     @Bean(name = "activeMQConf")
     public PropertiesConfiguration getActiveMQConfiguration() throws ConfigurationException {
-        PropertiesConfiguration conf = new PropertiesConfiguration(System.getProperty("catalina.base") + "/conf/activemq.properties");
+        PropertiesConfiguration conf = new PropertiesConfiguration(System.getProperty(CATALINA_BASE) + "/conf/activemq.properties");
         conf.setReloadingStrategy(new FileChangedReloadingStrategy());
         return conf;
     }
 
+    /**
+     * Configuration object containing the database connection configuration
+     * information
+     *
+     * @return
+     * @throws ConfigurationException
+     */
     @Bean(name = "persistanceConfig")
     public PropertiesConfiguration persistanceConfig() throws ConfigurationException {
-        PropertiesConfiguration conf = new PropertiesConfiguration(System.getProperty("catalina.base") + "/conf/s2d_connection.properties");
+        PropertiesConfiguration conf = new PropertiesConfiguration(System.getProperty(CATALINA_BASE) + "/conf/s2d_connection.properties");
         conf.setReloadingStrategy(new FileChangedReloadingStrategy());
         return conf;
     }
 
+    /**
+     * Bean for the Init Route
+     *
+     * @return
+     */
     @Bean
     public InitRoute initRoute() {
         return new InitRoute();
     }
 
+    /**
+     * Bean for the update route
+     *
+     * @return
+     */
     @Bean
     public UpdateRoute updateRoute() {
         return new UpdateRoute();
