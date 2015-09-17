@@ -326,5 +326,22 @@
             </build>
         </profile>
     </profiles>
+    
+    <scm>
+        <connection>scm:git:git@github.com:Institute-of-Marine-Research-NMD/Application-export-reference.git</connection>
+        <url>scm:git:git@github.com:Institute-of-Marine-Research-NMD/Application-export-reference.git</url>
+        <developerConnection>scm:git:git@github.com:Institute-of-Marine-Research-NMD/Application-export-reference.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <url>https://build.imr.no/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>https://build.imr.no/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
 
