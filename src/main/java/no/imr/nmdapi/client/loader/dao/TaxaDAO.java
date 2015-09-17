@@ -27,7 +27,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class TaxaDAO {
 
     private JdbcTemplate jdbcTemplate;
-    private static final String GET_ALL_TAXA = "select id, tsn, imr, path, nodc, validstatus, fao, information, pgnapes, aphiaid, ru_code from nmdreference.taxa";
+    private static final String GET_ALL_TAXA = "select id, tsn, imr, path, nodc, validstatus, fao, information, pgnapes, aphiaid, ru_code from "
+            + "nmdreference.taxa";
     private static final String GET_TAXA_SYNONYM = "SELECT ts.name, ts.preferred, lan.name as language FROM "
             + "nmdreference.taxa_synonym ts, nmdreference.language lan WHERE ts.id_language = lan.id AND"
             + " ts.id_taxa = ?";

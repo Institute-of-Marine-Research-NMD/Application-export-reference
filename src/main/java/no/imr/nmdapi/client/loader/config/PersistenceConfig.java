@@ -14,6 +14,7 @@ import no.imr.nmdapi.client.loader.dao.TaxaDAO;
 import no.imr.nmdapi.client.loader.dao.UDPListDAO;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,7 +27,8 @@ import org.springframework.context.annotation.Configuration;
 public class PersistenceConfig {
 
     @Autowired
-    private org.apache.commons.configuration.Configuration config;
+    @Qualifier("persistanceConfig")
+    private org.apache.commons.configuration.Configuration configuration;
 
     /**
      * Datasource bean
@@ -37,11 +39,11 @@ public class PersistenceConfig {
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
 
-        dataSource.setDriverClassName(config.getString("jdbc.driver"));
-        dataSource.setUrl(config.getString("jdbc.url"));
-        dataSource.setUsername(config.getString("jdbc.user"));
-        dataSource.setPassword(config.getString("jdbc.password"));
-        dataSource.setPassword(config.getString("jdbc.password"));
+        dataSource.setDriverClassName(configuration.getString("jdbc.driver"));
+        dataSource.setUrl(configuration.getString("jdbc.url"));
+        dataSource.setUsername(configuration.getString("jdbc.user"));
+        dataSource.setPassword(configuration.getString("jdbc.password"));
+        dataSource.setPassword(configuration.getString("jdbc.password"));
 
         return dataSource;
     }

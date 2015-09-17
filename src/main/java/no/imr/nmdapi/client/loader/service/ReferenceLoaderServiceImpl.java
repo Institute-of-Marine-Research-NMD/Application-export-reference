@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
@@ -18,32 +17,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import no.imr.commons.nmdreference.domain.v1.KeyValueElementListType;
 import no.imr.nmd.commons.dataset.jaxb.DatasetType;
 import no.imr.nmd.commons.dataset.jaxb.DatasetsType;
-import no.imr.nmdapi.client.loader.convert.AcousticCategoryConverter;
+import no.imr.nmd.commons.dataset.jaxb.QualityEnum;
+import no.imr.nmd.commons.dataset.jaxb.RestrictionsType;
 import no.imr.nmdapi.client.loader.convert.ConvertInterface;
-import no.imr.nmdapi.client.loader.convert.EquipmentConverter;
-import no.imr.nmdapi.client.loader.convert.InstitutionConverter;
-import no.imr.nmdapi.client.loader.convert.LanguageConverter;
-import no.imr.nmdapi.client.loader.convert.MissionTypeConverter;
-import no.imr.nmdapi.client.loader.convert.NationConverter;
-import no.imr.nmdapi.client.loader.convert.PersonConverter;
-import no.imr.nmdapi.client.loader.convert.PlatformConverter;
-import no.imr.nmdapi.client.loader.convert.SeaAreasConverter;
-import no.imr.nmdapi.client.loader.convert.TaxaConverter;
-import no.imr.nmdapi.client.loader.convert.UdpListConverter;
-import no.imr.nmdapi.client.loader.dao.AcousticCategoryDAO;
-import no.imr.nmdapi.client.loader.dao.EquipmentDAO;
-import no.imr.nmdapi.client.loader.dao.InstitutionDAO;
-import no.imr.nmdapi.client.loader.dao.LanguageDAO;
-import no.imr.nmdapi.client.loader.dao.MissionTypeDAO;
-import no.imr.nmdapi.client.loader.dao.NationDAO;
-import no.imr.nmdapi.client.loader.dao.PersonDAO;
-import no.imr.nmdapi.client.loader.dao.PlatformDAO;
-import no.imr.nmdapi.client.loader.dao.SeaAreasDAO;
-import no.imr.nmdapi.client.loader.dao.TaxaDAO;
-import no.imr.nmdapi.client.loader.dao.UDPListDAO;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -53,120 +33,37 @@ import org.springframework.stereotype.Service;
  * @author sjurl
  */
 @Service(value = "referenceLoaderService")
-public class ReferenceLoaderServiceImpl implements ReferenceLoaderServiceInterface {
+public abstract class ReferenceLoaderServiceImpl {
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ReferenceLoaderServiceImpl.class);
 
     @Autowired
-    private org.apache.commons.configuration.Configuration config;
+    @Qualifier("referenceConfig")
+    protected org.apache.commons.configuration.Configuration configuration;
 
-    @Autowired
-    private PlatformConverter platformConverter;
+    private File baseDirectory;
+    private DatasetsType datasets;
 
-    @Autowired
-    private PlatformDAO platformDAO;
-
-    @Autowired
-    private TaxaConverter taxaConverter;
-
-    @Autowired
-    private TaxaDAO taxaDAO;
-
-    @Autowired
-    private AcousticCategoryConverter acousticCategoryConverter;
-
-    @Autowired
-    private AcousticCategoryDAO acousticCategoryDAO;
-
-    @Autowired
-    private EquipmentConverter equipmentConverter;
-
-    @Autowired
-    private EquipmentDAO equipmentDAO;
-
-    @Autowired
-    private InstitutionConverter institutionConverter;
-
-    @Autowired
-    private InstitutionDAO institutionDAO;
-
-    @Autowired
-    private LanguageConverter languageConverter;
-
-    @Autowired
-    private LanguageDAO languageDAO;
-
-    @Autowired
-    private MissionTypeConverter missionTypeConverter;
-
-    @Autowired
-    private MissionTypeDAO missionTypeDAO;
-
-    @Autowired
-    private NationConverter nationConverter;
-
-    @Autowired
-    private NationDAO nationDAO;
-
-    @Autowired
-    private SeaAreasConverter seaAreasConverter;
-
-    @Autowired
-    private SeaAreasDAO seaAreasDAO;
-
-    @Autowired
-    private UdpListConverter udpListConverter;
-
-    @Autowired
-    private UDPListDAO udpListDAO;
-
-    @Autowired
-    private PersonConverter personConverter;
-
-    @Autowired
-    private PersonDAO personDAO;
-
-    @Override
-    public void loadReferenceToXml() {
-        File baseDirectory = new File(config.getString("file.location"));
+    protected void init() {
+        baseDirectory = new File(configuration.getString("file.location"));
         if (!baseDirectory.exists()) {
             baseDirectory.mkdirs();
         }
-        DatasetsType datasets = unmarshallDatasets(baseDirectory.getAbsolutePath().concat("/data.xml"));
-
-        handle(baseDirectory, datasets, "platform", platformConverter);
-
-        handle(baseDirectory, datasets, "taxa", taxaConverter);
-
-        handle(baseDirectory, datasets, "acousticcategory", acousticCategoryConverter);
-
-        handle(baseDirectory, datasets, "equipment", equipmentConverter);
-
-        handle(baseDirectory, datasets, "institution", institutionConverter);
-
-        handle(baseDirectory, datasets, "language", languageConverter);
-
-        handle(baseDirectory, datasets, "missiontype", missionTypeConverter);
-
-        handle(baseDirectory, datasets, "nation", nationConverter);
-
-        handle(baseDirectory, datasets, "person", personConverter);
-
-        handle(baseDirectory, datasets, "seaareas", seaAreasConverter);
-
-        List<KeyValueElementListType> udpLists = udpListConverter.convert();
-        for (KeyValueElementListType keyValueElementListType : udpLists) {
-            String useName = keyValueElementListType.getLookupName();
-            if (config.containsKey("diffname.".concat(useName))) {
-                keyValueElementListType.setLookupName(config.getString("diffname.".concat(useName)));
-            }
-            handleUdp(baseDirectory, datasets, keyValueElementListType.getLookupName(), keyValueElementListType);
+        File datsetFile = new File(baseDirectory.getAbsolutePath().concat("/data.xml"));
+        if (!datsetFile.exists()) {
+            DatasetsType dtype = new DatasetsType();
+            marshallDatasets(datsetFile.getAbsolutePath(), dtype);
         }
-        LOGGER.info("FINISHED with udp lists!");
+        datasets = unmarshallDatasets(baseDirectory.getAbsolutePath().concat("/data.xml"));
+    }
+
+    protected void finish() {
         marshallDatasets(baseDirectory.getAbsolutePath().concat("/data.xml"), datasets);
     }
 
-    private void handle(File baseDirectory, DatasetsType datasets, String datasetName, ConvertInterface ci) {
+    public abstract void loadReferenceToXml();
+
+    protected void handle(String datasetName, ConvertInterface ci) {
         File newFile = new File(FileUtils.getTempDirectory().getAbsolutePath().concat("/").concat(datasetName));
         File oldFile = new File(baseDirectory.getAbsolutePath().concat("/").concat(datasetName).concat("/").concat(datasetName).concat(".xml"));
         writeToFile(ci.convert(), newFile);
@@ -177,14 +74,21 @@ public class ReferenceLoaderServiceImpl implements ReferenceLoaderServiceInterfa
                     updateUpdatedTime(datasets, datasetName);
                 }
             } catch (IOException ex) {
-                LOGGER.error("Error working on table platform.");
+                LOGGER.error("Error working on table " + datasetName, ex);
+            }
+        } else if (newFile.exists() && !oldFile.exists()) {
+            try {
+                FileUtils.copyFile(newFile, oldFile);
+                updateUpdatedTime(datasets, datasetName);
+            } catch (IOException ex) {
+                LOGGER.error("Unable to write file " + oldFile.getAbsolutePath(), ex);
             }
         }
         newFile.delete();
-        LOGGER.info("FINISHED with platforms!");
+        LOGGER.info("FINISHED with " + datasetName);
     }
 
-    private void handleUdp(File baseDirectory, DatasetsType datasets, String datasetName, KeyValueElementListType elementListType) {
+    protected void handleUdp(String datasetName, KeyValueElementListType elementListType) {
         File newFile = new File(FileUtils.getTempDirectory().getAbsolutePath().concat("/").concat(datasetName));
         File oldFile = new File(baseDirectory.getAbsolutePath().concat("/").concat(datasetName).concat("/").concat(datasetName).concat(".xml"));
         writeToFile(elementListType, newFile);
@@ -195,7 +99,14 @@ public class ReferenceLoaderServiceImpl implements ReferenceLoaderServiceInterfa
                     updateUpdatedTime(datasets, datasetName);
                 }
             } catch (IOException ex) {
-                LOGGER.error("Error working on table ".concat(datasetName));
+                LOGGER.error("Error working on table ".concat(datasetName), ex);
+            }
+        } else if (newFile.exists() && !oldFile.exists()) {
+            try {
+                FileUtils.copyFile(newFile, oldFile);
+                updateUpdatedTime(datasets, datasetName);
+            } catch (IOException ex) {
+                LOGGER.error("Unable to write file " + oldFile.getAbsolutePath(), ex);
             }
         }
         newFile.delete();
@@ -219,7 +130,7 @@ public class ReferenceLoaderServiceImpl implements ReferenceLoaderServiceInterfa
             Unmarshaller unmarshaller = ctx.createUnmarshaller();
             Object obj = unmarshaller.unmarshal(new File(file));
             if (obj instanceof JAXBElement) {
-                return (DatasetsType) ((JAXBElement)obj).getValue();
+                return (DatasetsType) ((JAXBElement) obj).getValue();
             } else {
                 return (DatasetsType) obj;
             }
@@ -234,10 +145,27 @@ public class ReferenceLoaderServiceImpl implements ReferenceLoaderServiceInterfa
             GregorianCalendar c = new GregorianCalendar();
             c.setTime(Calendar.getInstance().getTime());
             XMLGregorianCalendar date = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+            boolean exists = false;
             for (DatasetType datasetType : datasets.getDataset()) {
                 if (datasetType.getDatasetName().equalsIgnoreCase(name)) {
+                    exists = true;
                     datasetType.setUpdated(date);
                 }
+            }
+            if (!exists) {
+                DatasetType dataset = new DatasetType();
+                dataset.setId("no:imr:reference:".concat(java.util.UUID.randomUUID().toString()));
+                dataset.setDataType("reference");
+                dataset.setDatasetName(name);
+                dataset.setOwner("imr");
+                RestrictionsType restrictionsType = new RestrictionsType();
+                restrictionsType.setRead("unrestricted");
+                restrictionsType.setWrite("SG-NMDREFERENCE-WRITE");
+                dataset.setRestrictions(restrictionsType);
+                dataset.setQualityAssured(QualityEnum.NONE);
+                dataset.setUpdated(date);
+                dataset.setCreated(date);
+                datasets.getDataset().add(dataset);
             }
         } catch (DatatypeConfigurationException ex) {
             Logger.getLogger(ReferenceLoaderServiceImpl.class.getName()).log(Level.SEVERE, null, ex);

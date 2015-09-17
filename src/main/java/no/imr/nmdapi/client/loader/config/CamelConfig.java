@@ -1,8 +1,13 @@
 package no.imr.nmdapi.client.loader.config;
 
+import java.util.Arrays;
+import java.util.List;
+import no.imr.nmdapi.client.loader.routes.InitRoute;
+import no.imr.nmdapi.client.loader.routes.UpdateRoute;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.spring.javaconfig.SingleRouteCamelConfiguration;
+import org.apache.camel.spring.javaconfig.CamelConfiguration;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -11,18 +16,17 @@ import org.springframework.context.annotation.Configuration;
  * @author sjurl
  */
 @Configuration
-public class CamelConfig extends SingleRouteCamelConfiguration implements InitializingBean {
+public class CamelConfig extends CamelConfiguration implements InitializingBean {
+
+    @Autowired
+    private InitRoute initRoute;
+
+    @Autowired
+    private UpdateRoute updateRoute;
 
     @Override
-    public RouteBuilder route() {
-        return new RouteBuilder() {
-
-            @Override
-            public void configure() {
-                from("timer://harvesttimer?fixedRate=true&period=86400000")
-                        .to("referenceLoaderService");
-            }
-        };
+    public List<RouteBuilder> routes() {
+        return Arrays.asList(initRoute, updateRoute);
     }
 
     @Override
