@@ -12,7 +12,7 @@ import no.imr.nmdapi.client.loader.dao.PlatformDAO;
 import no.imr.nmdapi.client.loader.dao.SeaAreasDAO;
 import no.imr.nmdapi.client.loader.dao.TaxaDAO;
 import no.imr.nmdapi.client.loader.dao.UDPListDAO;
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -37,14 +37,17 @@ public class PersistenceConfig {
      */
     @Bean
     public DataSource dataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
+        BasicDataSource dataSource = new org.apache.commons.dbcp2.BasicDataSource();
 
         dataSource.setDriverClassName(configuration.getString("jdbc.driver"));
         dataSource.setUrl(configuration.getString("jdbc.url"));
         dataSource.setUsername(configuration.getString("jdbc.user"));
         dataSource.setPassword(configuration.getString("jdbc.password"));
         dataSource.setPassword(configuration.getString("jdbc.password"));
-
+        dataSource.setInitialSize(6);
+        dataSource.setTestOnCreate(true);
+        dataSource.setTestOnReturn(true);
+        dataSource.setTestOnBorrow(true);
         return dataSource;
     }
 
