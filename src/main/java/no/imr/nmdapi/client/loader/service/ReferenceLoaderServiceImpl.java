@@ -15,6 +15,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import no.imr.commons.nmdreference.domain.v1.KeyValueElementListType;
+import no.imr.nmd.commons.dataset.jaxb.DataTypeEnum;
 import no.imr.nmd.commons.dataset.jaxb.DatasetType;
 import no.imr.nmd.commons.dataset.jaxb.DatasetsType;
 import no.imr.nmd.commons.dataset.jaxb.QualityEnum;
@@ -160,7 +161,7 @@ public abstract class ReferenceLoaderServiceImpl {
             if (!exists) {
                 DatasetType dataset = new DatasetType();
                 dataset.setId("no:imr:reference:".concat(java.util.UUID.randomUUID().toString()));
-                dataset.setDataType("reference");
+                dataset.setDataType(DataTypeEnum.REFERENCE);
                 dataset.setDatasetName(name);
                 dataset.setOwner("imr");
                 RestrictionsType restrictionsType = new RestrictionsType();
