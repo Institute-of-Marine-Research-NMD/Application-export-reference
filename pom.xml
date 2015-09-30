@@ -24,7 +24,11 @@
         </repository>
     </repositories>
     <dependencies>
-
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.1.1</version>
+        </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -362,7 +366,7 @@
             </build>
         </profile>
     </profiles>
-    
+
     <scm>
         <connection>scm:git:git@github.com:Institute-of-Marine-Research-NMD/Application-export-reference.git</connection>
         <url>scm:git:git@github.com:Institute-of-Marine-Research-NMD/Application-export-reference.git</url>
