@@ -71,7 +71,7 @@ public abstract class ReferenceLoaderServiceImpl {
 
     protected synchronized void handle(String datasetName, ConvertInterface ci) {
         File newFile = new File(FileUtils.getTempDirectory().getAbsolutePath().concat("/").concat(datasetName));
-        File oldFile = new File(baseDirectory.getAbsolutePath().concat("/").concat(datasetName).concat("/").concat(datasetName).concat(".xml"));
+        File oldFile = new File(baseDirectory.getAbsolutePath().concat("/").concat(datasetName).concat("/").concat("data").concat(".xml"));
         writeToFile(ci.convert(), newFile);
         if (newFile.exists() && oldFile.exists()) {
             try {
@@ -96,7 +96,7 @@ public abstract class ReferenceLoaderServiceImpl {
 
     protected void handleUdp(String datasetName, KeyValueElementListType elementListType) {
         File newFile = new File(FileUtils.getTempDirectory().getAbsolutePath().concat("/").concat(datasetName));
-        File oldFile = new File(baseDirectory.getAbsolutePath().concat("/").concat(datasetName).concat("/").concat(datasetName).concat(".xml"));
+        File oldFile = new File(baseDirectory.getAbsolutePath().concat("/").concat(datasetName).concat("/").concat("data").concat(".xml"));
         writeToFile(elementListType, newFile);
         if (newFile.exists() && oldFile.exists()) {
             try {
