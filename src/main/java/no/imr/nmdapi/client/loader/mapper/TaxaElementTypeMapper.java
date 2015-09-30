@@ -25,6 +25,7 @@ public class TaxaElementTypeMapper implements RowMapper<TaxaElementType> {
         taxaElement.setPgnapes(rs.getString("pgnapes"));
         taxaElement.setRuCode(rs.getInt("ru_code"));
         taxaElement.setTsn(BigInteger.valueOf(rs.getInt("tsn")));
+        taxaElement.setValidStatus(rs.getInt("validstatus"));
         return taxaElement;
     }
 
