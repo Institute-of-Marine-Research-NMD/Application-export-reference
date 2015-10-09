@@ -1,6 +1,7 @@
 package no.imr.nmdapi.client.loader.convert;
 
 import java.sql.Date;
+import java.util.Iterator;
 import java.util.List;
 import no.imr.commons.nmdreference.domain.v1.KeyValueElementType;
 import no.imr.commons.nmdreference.domain.v1.RestrictionElementType;
@@ -13,7 +14,9 @@ import no.imr.commons.nmdreference.domain.v1.TaxaListElementType;
 import no.imr.commons.nmdreference.domain.v1.TaxaListsElementType;
 import no.imr.nmdapi.client.loader.dao.TaxaDAO;
 import no.imr.nmdapi.client.loader.pojo.SpesialstadieLists;
+import org.apache.commons.configuration.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  * convert taxas into TaxaElementListType
@@ -21,6 +24,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author sjurl
  */
 public class TaxaConverter implements ConvertInterface {
+
+    @Autowired
+    @Qualifier("referenceConfig")
+    private Configuration configuration;
 
     @Autowired
     private TaxaDAO taxaDAO;
@@ -79,6 +86,7 @@ public class TaxaConverter implements ConvertInterface {
 
             TaxaElementType.Stocks st = new TaxaElementType.Stocks();
             List<StockElementType> stocks = taxaDAO.getStock(taxaElementType.getId());
+            setStockRestrictions(stocks);
             st.getStock().addAll(stocks);
             if (!st.getStock().isEmpty()) {
                 taxaElementType.setStocks(st);
@@ -89,6 +97,32 @@ public class TaxaConverter implements ConvertInterface {
             taxaList.setLastChanged(DateConverter.convertDate((Date) taxaDAO.getLastChanged()));
         }
         return taxaList;
+    }
+
+    /**
+     *
+     * @param stocks
+     */
+    private void setStockRestrictions(List<StockElementType> stocks) {
+        List<Object> stocksRestictionList = configuration.getList("stocks.restrictions.list");
+        for (StockElementType stockElementType : stocks) {
+            if (stocksRestictionList.contains(stockElementType.getName())) {
+                RestrictionsElementType restrictionsElementType = new RestrictionsElementType();
+                setStockRestrictionFromConfig(restrictionsElementType, stockElementType.getName());
+                stockElementType.setRestrictions(restrictionsElementType);
+            }
+        }
+    }
+
+    private void setStockRestrictionFromConfig(RestrictionsElementType restrictionsElementType, String name) {
+        Iterator<String> keys = configuration.getKeys("stocks.restriction.".concat(name));
+        while (keys.hasNext()) {
+            String key = keys.next();
+            RestrictionElementType restrictionElementType = new RestrictionElementType();
+            restrictionElementType.setName(key.replaceAll("stocks.restriction.".concat(name).concat("."), ""));
+            restrictionElementType.setValue(configuration.getString(key));
+            restrictionsElementType.getRestriction().add(restrictionElementType);
+        }
     }
 
 }
