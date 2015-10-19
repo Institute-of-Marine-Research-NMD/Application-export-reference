@@ -8,6 +8,7 @@ public class SpesialstadieLists {
 
     private Integer sexdependent;
     private String name;
+    private String udpname;
     private String id;
 
     /**
@@ -51,4 +52,14 @@ public class SpesialstadieLists {
     public void setId(String id) {
         this.id = id;
     }
+
+    public String getUdpname() {
+        return udpname;
+    }
+
+    public void setUdpname(String udpname) {
+        this.udpname = udpname;
+    }
+
+    
 }

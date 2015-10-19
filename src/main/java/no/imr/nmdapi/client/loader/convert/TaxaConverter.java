@@ -15,6 +15,8 @@ import no.imr.commons.nmdreference.domain.v1.TaxaListsElementType;
 import no.imr.nmdapi.client.loader.dao.TaxaDAO;
 import no.imr.nmdapi.client.loader.pojo.SpesialstadieLists;
 import org.apache.commons.configuration.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -24,6 +26,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
  * @author sjurl
  */
 public class TaxaConverter implements ConvertInterface {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TaxaConverter.class);
 
     @Autowired
     @Qualifier("referenceConfig")
@@ -54,11 +58,15 @@ public class TaxaConverter implements ConvertInterface {
             TaxaListsElementType lists = new TaxaListsElementType();
             for (SpesialstadieLists spesialstadieLists : spesialstadier) {
                 TaxaListElementType tlet = new TaxaListElementType();
-                if (configuration.containsKey("diffname.".concat(spesialstadieLists.getName()))) {
+                if (configuration.containsKey("diffname.".concat(spesialstadieLists.getUdpname()))) {
+                    tlet.setName(configuration.getString("diffname.".concat(spesialstadieLists.getUdpname())));
+                } else if (configuration.containsKey("diffname.".concat(spesialstadieLists.getName()))) {
                     tlet.setName(configuration.getString("diffname.".concat(spesialstadieLists.getName())));
                 } else {
                     tlet.setName(spesialstadieLists.getName());
                 }
+                LOGGER.info("Name input " + spesialstadieLists.getName());
+                LOGGER.info("Name has been set to " + tlet.getName());
                 switch (spesialstadieLists.getSexdependent()) {
                     case BOTH_SEXES:
                         tlet.setSex(SexEnum.BOTH);
