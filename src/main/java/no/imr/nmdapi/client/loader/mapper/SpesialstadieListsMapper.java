@@ -18,6 +18,7 @@ public class SpesialstadieListsMapper implements RowMapper<SpesialstadieLists> {
         SpesialstadieLists slist = new SpesialstadieLists();
         slist.setSexdependent(rs.getInt("sexdependent"));
         slist.setName(rs.getString("name"));
+        slist.setUdpname(rs.getString("udp_name"));
         slist.setId(rs.getString("id"));
         return slist;
     }

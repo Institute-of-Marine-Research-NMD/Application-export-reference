@@ -1,6 +1,7 @@
 package no.imr.nmdapi.client.loader.convert;
 
 import java.sql.Date;
+import java.util.Iterator;
 import java.util.List;
 import no.imr.commons.nmdreference.domain.v1.KeyValueElementType;
 import no.imr.commons.nmdreference.domain.v1.RestrictionElementType;
@@ -13,7 +14,11 @@ import no.imr.commons.nmdreference.domain.v1.TaxaListElementType;
 import no.imr.commons.nmdreference.domain.v1.TaxaListsElementType;
 import no.imr.nmdapi.client.loader.dao.TaxaDAO;
 import no.imr.nmdapi.client.loader.pojo.SpesialstadieLists;
+import org.apache.commons.configuration.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  * convert taxas into TaxaElementListType
@@ -21,6 +26,12 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author sjurl
  */
 public class TaxaConverter implements ConvertInterface {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TaxaConverter.class);
+
+    @Autowired
+    @Qualifier("referenceConfig")
+    private Configuration configuration;
 
     @Autowired
     private TaxaDAO taxaDAO;
@@ -47,7 +58,15 @@ public class TaxaConverter implements ConvertInterface {
             TaxaListsElementType lists = new TaxaListsElementType();
             for (SpesialstadieLists spesialstadieLists : spesialstadier) {
                 TaxaListElementType tlet = new TaxaListElementType();
-                tlet.setName(spesialstadieLists.getName());
+                if (configuration.containsKey("diffname.".concat(spesialstadieLists.getUdpname()))) {
+                    tlet.setName(configuration.getString("diffname.".concat(spesialstadieLists.getUdpname())));
+                } else if (configuration.containsKey("diffname.".concat(spesialstadieLists.getName()))) {
+                    tlet.setName(configuration.getString("diffname.".concat(spesialstadieLists.getName())));
+                } else {
+                    tlet.setName(spesialstadieLists.getName());
+                }
+                LOGGER.info("Name input " + spesialstadieLists.getName());
+                LOGGER.info("Name has been set to " + tlet.getName());
                 switch (spesialstadieLists.getSexdependent()) {
                     case FEMALE_SEX:
                         tlet.setSex(SexEnum.FEMALE);
@@ -76,6 +95,7 @@ public class TaxaConverter implements ConvertInterface {
 
             TaxaElementType.Stocks st = new TaxaElementType.Stocks();
             List<StockElementType> stocks = taxaDAO.getStock(taxaElementType.getId());
+            setStockRestrictions(stocks);
             st.getStock().addAll(stocks);
             if (!st.getStock().isEmpty()) {
                 taxaElementType.setStocks(st);
@@ -86,6 +106,32 @@ public class TaxaConverter implements ConvertInterface {
             taxaList.setLastChanged(DateConverter.convertDate((Date) taxaDAO.getLastChanged()));
         }
         return taxaList;
+    }
+
+    /**
+     *
+     * @param stocks
+     */
+    private void setStockRestrictions(List<StockElementType> stocks) {
+        List<Object> stocksRestictionList = configuration.getList("stocks.restrictions.list");
+        for (StockElementType stockElementType : stocks) {
+            if (stocksRestictionList.contains(stockElementType.getName())) {
+                RestrictionsElementType restrictionsElementType = new RestrictionsElementType();
+                setStockRestrictionFromConfig(restrictionsElementType, stockElementType.getName());
+                stockElementType.setRestrictions(restrictionsElementType);
+            }
+        }
+    }
+
+    private void setStockRestrictionFromConfig(RestrictionsElementType restrictionsElementType, String name) {
+        Iterator<String> keys = configuration.getKeys("stocks.restriction.".concat(name));
+        while (keys.hasNext()) {
+            String key = keys.next();
+            RestrictionElementType restrictionElementType = new RestrictionElementType();
+            restrictionElementType.setName(key.replaceAll("stocks.restriction.".concat(name).concat("."), ""));
+            restrictionElementType.setValue(configuration.getString(key));
+            restrictionsElementType.getRestriction().add(restrictionElementType);
+        }
     }
 
 }

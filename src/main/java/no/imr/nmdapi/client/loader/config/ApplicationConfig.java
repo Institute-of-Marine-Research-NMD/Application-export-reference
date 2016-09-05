@@ -27,7 +27,7 @@ public class ApplicationConfig {
      */
     @Bean(name = "referenceConfig")
     public PropertiesConfiguration configuration() throws ConfigurationException {
-        PropertiesConfiguration configuration = new PropertiesConfiguration(System.getProperty(CATALINA_BASE) + "/conf/nmd_reference_loader.properties");
+        PropertiesConfiguration configuration = new PropertiesConfiguration(System.getProperty(CATALINA_BASE) + "/conf/export_reference_loader.properties");
         ReloadingStrategy reloadingStrategy = new FileChangedReloadingStrategy();
         configuration.setReloadingStrategy(reloadingStrategy);
         return configuration;

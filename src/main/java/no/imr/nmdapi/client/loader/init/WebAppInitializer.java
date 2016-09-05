@@ -41,9 +41,8 @@ public class WebAppInitializer extends AbstractDispatcherServletInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
-
         try {
-            InitalizeLogbackHandler.getInstance().initalize(System.getProperty("catalina.base") + "/conf/reference_loader_logback_v1.xml", true);
+            InitalizeLogbackHandler.getInstance().initalize(System.getProperty("catalina.base") + "/conf/export_reference_loader_logback_v1.xml", true);
         } catch (LoggerInitalizationException ex) {
             LOGGER.error("Logging initializaton failed.", ex);
         }
