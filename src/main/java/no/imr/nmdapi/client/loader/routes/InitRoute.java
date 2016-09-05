@@ -19,7 +19,7 @@ public class InitRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         onException(Exception.class).continued(true).process(new ExceptionProcessor(configuration.getString("application.name"))).to("jms:queue:error");
-        from("timer://runOnce?repeatCount=1&delay=5000").to("platformLoader", "nationLoader", "acousticcategoryLoader",
+        from("timer://runOnce?repeatCount=1&delay=5000").to("fixedCoastalStationLoader","platformLoader", "nationLoader", "acousticcategoryLoader",
                 "equipmentLoader", "institutionLoader", "missiontypeLoader", "personLoader", "seaareaLoader", "taxaLoader", "languageLoader", "udpLoader");
     }
 

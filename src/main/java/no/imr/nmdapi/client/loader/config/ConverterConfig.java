@@ -2,6 +2,7 @@ package no.imr.nmdapi.client.loader.config;
 
 import no.imr.nmdapi.client.loader.convert.AcousticCategoryConverter;
 import no.imr.nmdapi.client.loader.convert.EquipmentConverter;
+import no.imr.nmdapi.client.loader.convert.FixedCoastalStationConverter;
 import no.imr.nmdapi.client.loader.convert.InstitutionConverter;
 import no.imr.nmdapi.client.loader.convert.LanguageConverter;
 import no.imr.nmdapi.client.loader.convert.MissionTypeConverter;
@@ -130,5 +131,10 @@ public class ConverterConfig {
     @Bean
     public PersonConverter personConverter() {
         return new PersonConverter();
+    }
+
+    @Bean
+    public FixedCoastalStationConverter fixedStationConverter() {
+        return new FixedCoastalStationConverter();
     }
 }

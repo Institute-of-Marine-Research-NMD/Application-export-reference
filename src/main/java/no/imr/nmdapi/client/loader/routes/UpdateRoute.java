@@ -43,6 +43,7 @@ public class UpdateRoute extends RouteBuilder {
                 .when(body(String.class).contains("seaarea")).to("seaareaLoader")
                 .when(body(String.class).in(taxa, language, restriction, stock)).to("taxaLoader", "languageLoader")
                 .when(body(String.class).contains("udp")).to("udpLoader")
+                .when(body(String.class).contains("fixedcoastalstation")).to("fixedCoastalStationLoader")
                 .otherwise().to("jms:queue:export-nothandled");
     }
 }

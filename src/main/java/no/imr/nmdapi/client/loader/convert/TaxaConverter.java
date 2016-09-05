@@ -49,9 +49,6 @@ public class TaxaConverter implements ConvertInterface {
                 TaxaListElementType tlet = new TaxaListElementType();
                 tlet.setName(spesialstadieLists.getName());
                 switch (spesialstadieLists.getSexdependent()) {
-                    case BOTH_SEXES:
-                        tlet.setSex(SexEnum.BOTH);
-                        break;
                     case FEMALE_SEX:
                         tlet.setSex(SexEnum.FEMALE);
                         break;

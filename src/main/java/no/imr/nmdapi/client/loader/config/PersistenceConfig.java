@@ -3,6 +3,7 @@ package no.imr.nmdapi.client.loader.config;
 import javax.sql.DataSource;
 import no.imr.nmdapi.client.loader.dao.AcousticCategoryDAO;
 import no.imr.nmdapi.client.loader.dao.EquipmentDAO;
+import no.imr.nmdapi.client.loader.dao.FixedCoastalStationDAO;
 import no.imr.nmdapi.client.loader.dao.InstitutionDAO;
 import no.imr.nmdapi.client.loader.dao.LanguageDAO;
 import no.imr.nmdapi.client.loader.dao.MissionTypeDAO;
@@ -159,5 +160,10 @@ public class PersistenceConfig {
     @Bean
     public PersonDAO personDAO() {
         return new PersonDAO();
+    }
+
+    @Bean
+    public FixedCoastalStationDAO fixedStationDAO() {
+        return new FixedCoastalStationDAO();
     }
 }
