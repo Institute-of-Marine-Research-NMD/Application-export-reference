@@ -22,12 +22,12 @@ public class FixedCoastalStationElementTypeMapper implements RowMapper<FixedCoas
         station.setId(rs.getString("id"));
         station.setStation(BigInteger.valueOf(rs.getInt("station")));
         station.setName(rs.getString("name"));
-        station.setDescription(rs.getString("description"));
-        station.setLatitude(BigDecimal.valueOf(rs.getDouble("latitude")));
-        station.setLongitude(BigDecimal.valueOf(rs.getDouble("longitude")));
-        station.setMaxdepth(BigDecimal.valueOf(rs.getDouble("maxdepth")));
-        station.setGein1(BigDecimal.valueOf(rs.getDouble("gein1")));
-        station.setGein2(BigDecimal.valueOf(rs.getDouble("gein2")));
+        station.setDescription(rs.getString("description"));      
+        station.setLatitude(rs.getBigDecimal("latitude"));
+        station.setLongitude(rs.getBigDecimal("longitude"));
+        station.setMaxdepth(rs.getBigDecimal("maxdepth"));
+        station.setGein1(rs.getBigDecimal("gein1"));
+        station.setGein2(rs.getBigDecimal("gein2"));
         station.setStartyear(BigInteger.valueOf(rs.getInt("startyear")));
         station.setEndyear(BigInteger.valueOf(rs.getInt("endyear")));
         station.setDeprecated(Boolean.FALSE);
@@ -53,4 +53,5 @@ public class FixedCoastalStationElementTypeMapper implements RowMapper<FixedCoas
         return station;
 
     }
+
 }
