@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import no.imr.commons.nmdreference.domain.v1.FixedCoastalstationType;
-import no.imr.commons.nmdreference.domain.v1.StringDescriptionType;
+import no.imr.commons.nmdreference.domain.v1_0.FixedCoastalstationType;
+import no.imr.commons.nmdreference.domain.v1_0.StringDescriptionType;
 import org.springframework.jdbc.core.RowMapper;
 
 /**

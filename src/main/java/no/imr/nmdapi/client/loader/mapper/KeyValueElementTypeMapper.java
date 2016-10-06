@@ -2,7 +2,7 @@ package no.imr.nmdapi.client.loader.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import no.imr.commons.nmdreference.domain.v1.KeyValueElementType;
+import no.imr.commons.nmdreference.domain.v1_0.KeyValueElementType;
 import no.imr.nmdapi.client.loader.convert.DateConverter;
 import org.springframework.jdbc.core.RowMapper;
 

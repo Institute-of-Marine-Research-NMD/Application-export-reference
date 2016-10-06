@@ -1,17 +1,23 @@
 package no.imr.nmdapi.client.loader.convert;
 
 import java.sql.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
-import no.imr.commons.nmdreference.domain.v1.KeyValueElementType;
-import no.imr.commons.nmdreference.domain.v1.RestrictionElementType;
-import no.imr.commons.nmdreference.domain.v1.RestrictionsElementType;
-import no.imr.commons.nmdreference.domain.v1.SexEnum;
-import no.imr.commons.nmdreference.domain.v1.StockElementType;
-import no.imr.commons.nmdreference.domain.v1.TaxaElementListType;
-import no.imr.commons.nmdreference.domain.v1.TaxaElementType;
-import no.imr.commons.nmdreference.domain.v1.TaxaListElementType;
-import no.imr.commons.nmdreference.domain.v1.TaxaListsElementType;
+import java.util.TimeZone;
+import java.util.logging.Level;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+import no.imr.commons.nmdreference.domain.v1_0.KeyValueElementType;
+import no.imr.commons.nmdreference.domain.v1_0.RestrictionElementType;
+import no.imr.commons.nmdreference.domain.v1_0.RestrictionsElementType;
+import no.imr.commons.nmdreference.domain.v1_0.SexEnum;
+import no.imr.commons.nmdreference.domain.v1_0.StockElementType;
+import no.imr.commons.nmdreference.domain.v1_0.TaxaElementListType;
+import no.imr.commons.nmdreference.domain.v1_0.TaxaElementType;
+import no.imr.commons.nmdreference.domain.v1_0.TaxaListElementType;
+import no.imr.commons.nmdreference.domain.v1_0.TaxaListsElementType;
 import no.imr.nmdapi.client.loader.dao.TaxaDAO;
 import no.imr.nmdapi.client.loader.pojo.SpesialstadieLists;
 import org.apache.commons.configuration.Configuration;
@@ -69,7 +75,7 @@ public class TaxaConverter implements ConvertInterface {
                 LOGGER.info("Name has been set to " + tlet.getName());
                 switch (spesialstadieLists.getSexdependent()) {
                     case FEMALE_SEX:
-                        tlet.setSex(SexEnum.FEMALE);
+                        tlet.setSex(SexEnum.FEMALE);                        
                         break;
                     case MALE_SEX:
                         tlet.setSex(SexEnum.MALE);
@@ -77,7 +83,8 @@ public class TaxaConverter implements ConvertInterface {
                     default:
                         break;
                 }
-
+                tlet.setValidFrom(getXMLType(spesialstadieLists.getValidFrom()));
+                tlet.setValidTo(getXMLType(spesialstadieLists.getValidTo()));
                 List<KeyValueElementType> keyvalues = taxaDAO.getKeyValueElements(spesialstadieLists.getId());
                 tlet.getElement().addAll(keyvalues);
                 lists.getList().add(tlet);
@@ -131,6 +138,18 @@ public class TaxaConverter implements ConvertInterface {
             restrictionElementType.setName(key.replaceAll("stocks.restriction.".concat(name).concat("."), ""));
             restrictionElementType.setValue(configuration.getString(key));
             restrictionsElementType.getRestriction().add(restrictionElementType);
+        }
+    }
+
+    private XMLGregorianCalendar getXMLType(Date date) {
+        try {
+            GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
+            calendar.setTime(date);
+            XMLGregorianCalendar xmlCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+            return xmlCalendar;
+        } catch (DatatypeConfigurationException ex) {
+            LOGGER.error("Could not set date", ex);
+            return null;
         }
     }
 

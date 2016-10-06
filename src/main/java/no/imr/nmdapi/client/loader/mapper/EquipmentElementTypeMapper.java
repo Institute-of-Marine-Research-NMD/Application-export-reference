@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import no.imr.commons.nmdreference.domain.v1.EquipmentElementType;
+import no.imr.commons.nmdreference.domain.v1_0.EquipmentElementType;
 import org.springframework.jdbc.core.RowMapper;
 
 /**

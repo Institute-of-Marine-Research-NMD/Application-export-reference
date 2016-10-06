@@ -14,7 +14,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import no.imr.commons.nmdreference.domain.v1.KeyValueElementListType;
+import no.imr.commons.nmdreference.domain.v1_0.KeyValueElementListType;
 import no.imr.nmd.commons.dataset.jaxb.DataTypeEnum;
 import no.imr.nmd.commons.dataset.jaxb.DatasetType;
 import no.imr.nmd.commons.dataset.jaxb.DatasetsType;
@@ -121,7 +121,7 @@ public abstract class ReferenceLoaderServiceImpl {
 
     private void writeToFile(Object taxaList, File file) {
         try {
-            JAXBContext ctx = JAXBContext.newInstance("no.imr.commons.nmdreference.domain.v1");
+            JAXBContext ctx = JAXBContext.newInstance("no.imr.commons.nmdreference.domain.v1_0");
             Marshaller marshaller = ctx.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.marshal(taxaList, file);

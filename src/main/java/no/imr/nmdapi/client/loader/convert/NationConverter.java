@@ -1,7 +1,7 @@
 package no.imr.nmdapi.client.loader.convert;
 
 import java.sql.Date;
-import no.imr.commons.nmdreference.domain.v1.NationElementListType;
+import no.imr.commons.nmdreference.domain.v1_0.NationElementListType;
 import no.imr.nmdapi.client.loader.dao.NationDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 

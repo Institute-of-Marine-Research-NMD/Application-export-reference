@@ -1,7 +1,7 @@
 package no.imr.nmdapi.client.loader.service;
 
 import java.util.List;
-import no.imr.commons.nmdreference.domain.v1.KeyValueElementListType;
+import no.imr.commons.nmdreference.domain.v1_0.KeyValueElementListType;
 import no.imr.nmdapi.client.loader.convert.UdpListConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

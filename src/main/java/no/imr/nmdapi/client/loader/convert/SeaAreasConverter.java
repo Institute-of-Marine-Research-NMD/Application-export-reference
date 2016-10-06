@@ -1,7 +1,7 @@
 package no.imr.nmdapi.client.loader.convert;
 
 import java.sql.Date;
-import no.imr.commons.nmdreference.domain.v1.SeaAreasElementListType;
+import no.imr.commons.nmdreference.domain.v1_0.SeaAreasElementListType;
 import no.imr.nmdapi.client.loader.dao.SeaAreasDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 

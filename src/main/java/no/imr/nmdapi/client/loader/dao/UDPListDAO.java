@@ -3,7 +3,7 @@ package no.imr.nmdapi.client.loader.dao;
 import java.util.Date;
 import java.util.List;
 import javax.sql.DataSource;
-import no.imr.commons.nmdreference.domain.v1.KeyValueElementType;
+import no.imr.commons.nmdreference.domain.v1_0.KeyValueElementType;
 import no.imr.nmdapi.client.loader.mapper.DateMapper;
 import no.imr.nmdapi.client.loader.mapper.KeyValueElementTypeMapper;
 import no.imr.nmdapi.client.loader.mapper.UDPListMapper;

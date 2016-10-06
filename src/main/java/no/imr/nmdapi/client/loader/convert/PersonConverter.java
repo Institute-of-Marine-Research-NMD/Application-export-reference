@@ -1,6 +1,6 @@
 package no.imr.nmdapi.client.loader.convert;
 
-import no.imr.commons.nmdreference.domain.v1.PersonsElementListType;
+import no.imr.commons.nmdreference.domain.v1_0.PersonsElementListType;
 import no.imr.nmdapi.client.loader.dao.PersonDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 

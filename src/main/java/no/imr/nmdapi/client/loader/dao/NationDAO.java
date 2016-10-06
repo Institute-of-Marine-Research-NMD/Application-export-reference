@@ -3,7 +3,7 @@ package no.imr.nmdapi.client.loader.dao;
 import java.sql.Date;
 import java.util.List;
 import javax.sql.DataSource;
-import no.imr.commons.nmdreference.domain.v1.NationElementType;
+import no.imr.commons.nmdreference.domain.v1_0.NationElementType;
 import no.imr.nmdapi.client.loader.mapper.DateMapper;
 import no.imr.nmdapi.client.loader.mapper.NationElementTypeMapper;
 import org.springframework.beans.factory.annotation.Autowired;

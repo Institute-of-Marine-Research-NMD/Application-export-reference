@@ -3,7 +3,7 @@ package no.imr.nmdapi.client.loader.dao;
 import java.sql.Date;
 import java.util.List;
 import javax.sql.DataSource;
-import no.imr.commons.nmdreference.domain.v1.AcousticCategoryElementType;
+import no.imr.commons.nmdreference.domain.v1_0.AcousticCategoryElementType;
 import no.imr.nmdapi.client.loader.mapper.AcousticCategoryElementTypeMapper;
 import no.imr.nmdapi.client.loader.mapper.DateMapper;
 import org.springframework.beans.factory.annotation.Autowired;

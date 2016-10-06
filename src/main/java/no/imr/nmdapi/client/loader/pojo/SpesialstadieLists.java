@@ -1,5 +1,7 @@
 package no.imr.nmdapi.client.loader.pojo;
 
+import java.sql.Date;
+
 /**
  *
  * @author sjurl
@@ -10,6 +12,8 @@ public class SpesialstadieLists {
     private String name;
     private String udpname;
     private String id;
+    private Date validFrom;
+    private Date validTo;
 
     /**
      * @return the sexdependent
@@ -59,6 +63,22 @@ public class SpesialstadieLists {
 
     public void setUdpname(String udpname) {
         this.udpname = udpname;
+    }
+
+    public void setValidFrom(Date validFrom) {
+        this.validFrom = validFrom;
+    }
+
+    public void setValidTo(Date validTo) {
+        this.validTo = validTo;
+    }
+
+    public Date getValidFrom() {
+        return validFrom;
+    }
+
+    public Date getValidTo() {
+        return validTo;
     }
 
     
