@@ -18,16 +18,18 @@ public class UDPLoader extends ReferenceLoaderServiceImpl {
 
     @Override
     public void loadReferenceToXml() {
-        init();
-        List<KeyValueElementListType> udpLists = udpListConverter.convert();
-        for (KeyValueElementListType keyValueElementListType : udpLists) {
-            String useName = keyValueElementListType.getLookupName();
-            if (configuration.containsKey("diffname.".concat(useName))) {
-                keyValueElementListType.setLookupName(configuration.getString("diffname.".concat(useName)));
+        synchronized (UDPLoader.class) {
+            init();
+            List<KeyValueElementListType> udpLists = udpListConverter.convert();
+            for (KeyValueElementListType keyValueElementListType : udpLists) {
+                String useName = keyValueElementListType.getLookupName();
+                if (configuration.containsKey("diffname.".concat(useName))) {
+                    keyValueElementListType.setLookupName(configuration.getString("diffname.".concat(useName)));
+                }
+                handleUdp(keyValueElementListType.getLookupName(), keyValueElementListType);
             }
-            handleUdp(keyValueElementListType.getLookupName(), keyValueElementListType);
+            finish();
         }
-        finish();
     }
 
 }
