@@ -69,7 +69,7 @@ public class TaxaConverter implements ConvertInterface {
                 } else if (configuration.containsKey("diffname.".concat(spesialstadieLists.getName()))) {
                     tlet.setName(configuration.getString("diffname.".concat(spesialstadieLists.getName())));
                 } else {
-                    tlet.setName(spesialstadieLists.getName());
+                    tlet.setName(spesialstadieLists.getUdpname());
                 }
                 LOGGER.info("Name input " + spesialstadieLists.getName());
                 LOGGER.info("Name has been set to " + tlet.getName());
@@ -85,6 +85,7 @@ public class TaxaConverter implements ConvertInterface {
                 }
                 tlet.setValidFrom(getXMLType(spesialstadieLists.getValidFrom()));
                 tlet.setValidTo(getXMLType(spesialstadieLists.getValidTo()));
+                tlet.setProperty(spesialstadieLists.getProperty());
                 List<KeyValueElementType> keyvalues = taxaDAO.getKeyValueElements(spesialstadieLists.getId());
                 tlet.getElement().addAll(keyvalues);
                 lists.getList().add(tlet);

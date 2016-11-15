@@ -24,6 +24,7 @@ public class SpesialstadieListsMapper implements RowMapper<SpesialstadieLists> {
         slist.setId(rs.getString("id"));
         slist.setValidFrom(rs.getDate("validfrom", Calendar.getInstance(TimeZone.getTimeZone("UTC"))));
         slist.setValidTo(rs.getDate("validto", Calendar.getInstance(TimeZone.getTimeZone("UTC"))));        
+        slist.setProperty(rs.getString("propertyname"));
         return slist;
     }
 

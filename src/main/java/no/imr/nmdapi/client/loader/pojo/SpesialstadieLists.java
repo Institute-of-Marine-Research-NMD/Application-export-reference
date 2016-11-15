@@ -14,6 +14,7 @@ public class SpesialstadieLists {
     private String id;
     private Date validFrom;
     private Date validTo;
+    private String property;
 
     /**
      * @return the sexdependent
@@ -79,6 +80,14 @@ public class SpesialstadieLists {
 
     public Date getValidTo() {
         return validTo;
+    }
+
+    public String getProperty() {
+        return property;
+    }
+
+    public void setProperty(String property) {
+        this.property = property;
     }
 
     

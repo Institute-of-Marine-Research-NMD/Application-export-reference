@@ -32,8 +32,7 @@ public class TaxaDAO {
     private static final String GET_TAXA_SYNONYM = "SELECT ts.name, ts.preferred, lan.name as language FROM "
             + "nmdreference.taxa_synonym ts, nmdreference.language lan WHERE ts.id_language = lan.id AND"
             + " ts.id_taxa = ?";
-    private static final String GET_TAXA_LISTS = "select pt.sexdependent, udp.name, udp.udp_name, udp.id, pt.validto,pt.validfrom from nmdreference.u_u_vobject_property_taxa pt, nmdreference.u_udp udp\n"
-            + "where id_taxa = ? and pt.id_u_udp = udp.id";
+    private static final String GET_TAXA_LISTS = "select pt.sexdependent, udp.name, udp.udp_name, udp.id, pt.validto,pt.validfrom,uop.propertyname  from nmdreference.u_u_vobject_property_taxa pt, nmdreference.u_udp udp, nmdreference.u_vobject_property uop where id_taxa = ? and pt.id_u_udp = udp.id and uop.id= pt.id_u_vobject_property";
 
     private static final String GET_UDP_LIST_ELEMENTS = "select shortname, name, description, validfrom, validto, id from nmdreference.u_udplist where id_u_udp = ?";
 
